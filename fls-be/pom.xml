@@ -26,6 +26,12 @@
 		<developerConnection>scm:git:https://github.com/thalabi/ipm-be</developerConnection>
 	  	<tag>HEAD</tag>
 	</scm>
+	<repositories>
+	    <repository>
+	      <id>kerneldc-nexus</id>
+	      <url>${repo-url}/repository</url>
+	    </repository>
+	</repositories>
 	<properties>
 		<java.version>21</java.version>
 		<repo-url>http://localhost:8081</repo-url>
