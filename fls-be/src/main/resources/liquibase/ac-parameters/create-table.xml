@@ -1,0 +1,29 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+		http://www.liquibase.org/xml/ns/dbchangelog-ext
+		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+		http://www.liquibase.org/xml/ns/pro
+		http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">
+		
+    <changeSet author="Tarif Halabi (generated)" id="ac-parameters-create-table">
+        <createTable tableName="ac_parameters">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="ac_parameters_pkey"/>
+            </column>
+            <column name="lk" type="VARCHAR(4000)"/>
+            <column name="registration" type="VARCHAR(6)"/>
+            <column name="initial_ttsn" type="numeric(6, 2)"/>
+            <column name="initial_tsmoh" type="numeric(6, 2)"/>
+            <column name="each_tank_capacity" type="numeric(5, 2)"/>
+            <column name="fuel_burn" type="numeric(5, 2)"/>
+            <column name="version" type="BIGINT"/>
+        </createTable>
+        <addUniqueConstraint columnNames="lk" constraintName="lk" tableName="ac_parameters"/>
+    </changeSet>
+</databaseChangeLog>
