@@ -13,6 +13,12 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>fls</name>
 	<description>Flight log sheet</description>
+
+	<properties>
+		<java.version>21</java.version>
+		<repo-url>http://localhost:8081</repo-url>
+	</properties>
+
 	<url/>
 	<licenses>
 		<license/>
@@ -20,6 +26,18 @@
 	<developers>
 		<developer/>
 	</developers>
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>kerneldc-nexus</id>
+			<url>${repo-url}/repository/maven-snapshots</url>
+		</snapshotRepository>
+		<repository>
+			<id>kerneldc-nexus</id>
+			<name>Releases</name>
+			<url>${repo-url}/repository/maven-releases</url>
+		</repository>
+	</distributionManagement>
 	<scm>
 		<url>scm:git:https://github.com/thalabi/ipm-be</url>
 		<connection>scm:git:https://github.com/thalabi/ipm-be</connection>
@@ -32,10 +50,7 @@
 	      <url>${repo-url}/repository</url>
 	    </repository>
 	</repositories>
-	<properties>
-		<java.version>21</java.version>
-		<repo-url>http://localhost:8081</repo-url>
-	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
