@@ -1,1 +1,1 @@
-INSERT INTO ac_parameters (lk, registration, initial_ttsn, initial_tsmoh, each_tank_capacity, fuel_burn, "version") VALUES('C-GQGD', 'C-GQGD', 4928.7, 3385, 24, 9, 0);
+INSERT INTO ac_parameters (lk, registration, initial_tsn, initial_tsmoh, each_tank_capacity, fuel_burn_per_hour, "version") VALUES('C-GQGD', 'C-GQGD', 4928.7, 3385, 24, 9, 0);

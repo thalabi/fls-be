@@ -18,10 +18,10 @@
             </column>
             <column name="lk" type="VARCHAR(4000)"/>
             <column name="registration" type="VARCHAR(6)"/>
-            <column name="initial_ttsn" type="numeric(6, 2)"/>
+            <column name="initial_tsn" type="numeric(6, 2)"/>
             <column name="initial_tsmoh" type="numeric(6, 2)"/>
             <column name="each_tank_capacity" type="numeric(5, 2)"/>
-            <column name="fuel_burn" type="numeric(5, 2)"/>
+            <column name="fuel_burn_per_hour" type="numeric(5, 2)"/>
             <column name="version" type="BIGINT"/>
         </createTable>
         <addUniqueConstraint columnNames="lk" constraintName="lk" tableName="ac_parameters"/>

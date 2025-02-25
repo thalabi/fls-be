@@ -1,13 +1,12 @@
 package com.kerneldc.fls.springconfig;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.filter.CommonsRequestLoggingFilter;
 
 @Configuration
 public class HttpLogging {
 
-	@Bean
+	//@Bean
 	public CommonsRequestLoggingFilter logFilter() {
 		CommonsRequestLoggingFilter filter = new CommonsRequestLoggingFilter();
 		filter.setIncludeQueryString(true);

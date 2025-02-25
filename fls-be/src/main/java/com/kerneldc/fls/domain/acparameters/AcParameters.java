@@ -15,10 +15,10 @@ public class AcParameters extends AbstractPersistableEntity {
 	private static final long serialVersionUID = 1L;
 	
 	@Setter(AccessLevel.NONE)	private String registration;
-	private Float initialTtsn;
+	private Float initialTsn;
 	private Float initialTsmoh;
 	private Float eachTankCapacity;
-	private Float fuelBurn;
+	private Float fuelBurnPerHour;
 
 	public void setRegistration(String registration) {
 		this.registration = registration;
