@@ -1,0 +1,1 @@
+liquibase --changeLogFile=refuel_log.xml --url=jdbc:postgresql://localhost:5432/postgres --username=fls --password=fls -–includeSchema=no -–schemas=fls --includeObjects=table:refuel_log generateChangeLog

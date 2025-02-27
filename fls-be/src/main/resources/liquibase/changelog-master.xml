@@ -12,4 +12,5 @@
         http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">
         
         <include file="liquibase/ac-parameters/create-table.xml"/>
+        <include file="liquibase/fuel-log/create-table.xml"/>
 </databaseChangeLog>
