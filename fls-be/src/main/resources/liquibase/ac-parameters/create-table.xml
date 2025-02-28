@@ -20,10 +20,10 @@
 			<column name="registration" type="VARCHAR(6)">
 				<constraints nullable="false" />
 			</column>
-			<column name="initial_tsn" type="numeric(6, 2)">
+			<column name="initial_tsn" type="numeric(6, 1)">
 				<constraints nullable="false" />
 			</column>
-			<column name="initial_tsmoh" type="numeric(6, 2)">
+			<column name="initial_tsmoh" type="numeric(6, 1)">
 				<constraints nullable="false" />
 			</column>
 			<column name="each_tank_capacity" type="numeric(5, 2)">
