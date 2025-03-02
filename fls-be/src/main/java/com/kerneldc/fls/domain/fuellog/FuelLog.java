@@ -38,6 +38,11 @@ public class FuelLog extends AbstractPersistableEntity {
 		setLogicalKeyHolder();
 	}
 	
+	public void setDate(OffsetDateTime date) {
+		this.date = date;
+		setLogicalKeyHolder();
+	}
+	
 	@Override
 	protected void setLogicalKeyHolder() {
 		var logicalKeyHolder = LogicalKeyHolder.build(registration, date);
