@@ -51,7 +51,7 @@ public class EntityRepresentationModelAssemblerAdapter extends RepresentationMod
 
 	private AbstractEntityModel simpleEntityToModel(AbstractEntity entity) {
 		
-		LOGGER.info("handling simple entity: [{}]", entity.getClass().getSimpleName());
+		LOGGER.debug("handling simple entity: [{}]", entity.getClass().getSimpleName());
 		AbstractEntityModel model = new AbstractEntityModel();
 		model.setAbstractEntity(entity);
 		Link link = repositoryEntityLinks.linkToItemResource(entity, AbstractEntity.idExtractor);
@@ -64,7 +64,7 @@ public class EntityRepresentationModelAssemblerAdapter extends RepresentationMod
 	private AbstractEntityModel complexEntityToModel(AbstractEntity entity,
 			IComplexEntityRepresentationModelAssembler iComplexEntityRepresentationModelAssembler) {
 		
-		LOGGER.info("handling complex entity: [{}]", entity.getClass().getSimpleName());
+		LOGGER.debug("handling complex entity: [{}]", entity.getClass().getSimpleName());
 		return iComplexEntityRepresentationModelAssembler.toModel(entity);
 	}
 }
