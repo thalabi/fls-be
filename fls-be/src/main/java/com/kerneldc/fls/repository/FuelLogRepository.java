@@ -8,7 +8,6 @@ import com.kerneldc.fls.domain.fuellog.FuelLog;
 
 public interface FuelLogRepository extends BaseTableRepository<FuelLog, Long>{
 
-	//List<FuelLog> findAllByOrderByRegistrationAscDateAsc();
 	List<FuelLog> findTopByRegistrationOrderByDateDesc(String registration);
 	
 	@Override

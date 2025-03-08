@@ -1,0 +1,41 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+						http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+						http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">
+
+	<changeSet author="Tarif Halabi (generated)" id="log-sheet-create-table">
+        <createTable tableName="log_sheet">
+        
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="log_sheet_pkey"/>
+            </column>
+            <column name="lk" type="VARCHAR(4000)">
+                <constraints nullable="false"/>
+            </column>
+            
+            <column name="registration" type="VARCHAR(6)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date" type="TIMESTAMP WITH TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            
+            <column name="airtime" type="numeric(2, 1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="flight_time" type="numeric(2, 1)">
+                <constraints nullable="false"/>
+            </column>
+            
+            <column name="version" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addUniqueConstraint columnNames="lk" constraintName="log_sheet_lk_key" tableName="log_sheet"/>
+	</changeSet>
+</databaseChangeLog>

@@ -4,10 +4,12 @@ import java.util.Arrays;
 
 import com.kerneldc.fls.domain.acparameters.AcParameters;
 import com.kerneldc.fls.domain.fuellog.FuelLog;
+import com.kerneldc.fls.domain.logsheet.LogSheet;
 
 public enum FlsEntityEnum implements IEntityEnum {
 	AC_PARAMETERS(AcParameters.class, false, new String[] {}),
 	FUEL_LOG(FuelLog.class, false, new String[] {}),
+	LOG_SHEET(LogSheet.class, false, new String[] {}),
 	;
 
 	Class<? extends AbstractEntity> entity;

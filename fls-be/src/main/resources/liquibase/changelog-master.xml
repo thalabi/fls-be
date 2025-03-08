@@ -13,4 +13,5 @@
         
         <include file="liquibase/ac-parameters/create-table.xml"/>
         <include file="liquibase/fuel-log/create-table.xml"/>
+        <include file="liquibase/log-sheet/create-table.xml"/>
 </databaseChangeLog>
