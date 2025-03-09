@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.kerneldc</groupId>
 	<artifactId>fls-be</artifactId>
-	<version>0.1-RELEASE</version>
+	<version>0.1.0-SNAPSHOT</version>
 	<name>fls-be</name>
 	<description>Flight log sheet</description>
 
