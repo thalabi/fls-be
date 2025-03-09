@@ -141,6 +141,8 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
+					<!-- Make this jar executable -->
+					<executable>true</executable>
 					<excludes>
 						<exclude>
 							<groupId>org.projectlombok</groupId>
@@ -149,6 +151,11 @@
 					</excludes>
 				</configuration>
 			</plugin>
+			<plugin>
+      			<groupId>com.github.ulisesbocchio</groupId>
+      			<artifactId>jasypt-maven-plugin</artifactId>
+      			<version>3.0.5</version>
+    		</plugin>
 		</plugins>
 	</build>
 
