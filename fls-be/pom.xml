@@ -17,6 +17,8 @@
 	<properties>
 		<java.version>21</java.version>
 		<repo-url>http://localhost:8081</repo-url>
+		<maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
+		<timestamp>${maven.build.timestamp}</timestamp>
 	</properties>
 
 	<url/>
