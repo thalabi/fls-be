@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.kerneldc</groupId>
-	<artifactId>fls</artifactId>
+	<artifactId>fls-be</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>fls-be</name>
 	<description>Flight log sheet</description>
