@@ -11,7 +11,7 @@
 	<groupId>com.kerneldc</groupId>
 	<artifactId>fls</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>fls</name>
+	<name>fls-be</name>
 	<description>Flight log sheet</description>
 
 	<properties>
