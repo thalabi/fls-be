@@ -24,7 +24,13 @@
             <column name="date" type="TIMESTAMP WITH TIME ZONE">
                 <constraints nullable="false"/>
             </column>
-            
+			<column name="from" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+			</column>
+			<column name="to" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+			</column>
+
             <column name="airtime" type="numeric(2, 1)">
                 <constraints nullable="false"/>
             </column>

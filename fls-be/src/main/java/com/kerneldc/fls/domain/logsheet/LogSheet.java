@@ -22,6 +22,10 @@ public class LogSheet extends AbstractPersistableEntity {
 	@Setter(AccessLevel.NONE)
 	@Column(name = "\"date\"")
 	private OffsetDateTime date;
+	@Column(name = "\"from\"")
+	private String from;
+	@Column(name = "\"to\"")
+	private String to;
 	private Float airtime;
 	private Float flightTime;
 

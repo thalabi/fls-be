@@ -37,6 +37,8 @@ public class LogSheetService {
 		var logSheet = new LogSheet();
 		logSheet.setRegistration(registration);
 		logSheet.setDate(date);
+		logSheet.setFrom(logSheetRequest.from());
+		logSheet.setTo(logSheetRequest.to());
 		logSheet.setAirtime(logSheetRequest.airtime());
 		logSheet.setFlightTime(logSheetRequest.flightTime());
 		logSheetRepository.save(logSheet);

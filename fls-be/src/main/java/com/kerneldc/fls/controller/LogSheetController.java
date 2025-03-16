@@ -25,7 +25,7 @@ public class LogSheetController {
 
 	private final LogSheetService logSheetService;
 	
-	public record LogSheetRequest(String registration, OffsetDateTime date, Float airtime, Float flightTime, Float leftTankUsed, Float rightTankUsed) {}
+	public record LogSheetRequest(String registration, OffsetDateTime date, String from, String to, Float airtime, Float flightTime, Float leftTankUsed, Float rightTankUsed) {}
 
 	@PostMapping("/addLogSheet")
 	public ResponseEntity<String> addLogSheet(@Valid @RequestBody LogSheetRequest logSheetRequest) {
