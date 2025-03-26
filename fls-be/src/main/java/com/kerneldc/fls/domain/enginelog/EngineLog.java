@@ -1,51 +1,46 @@
-package com.kerneldc.fls.domain.logsheet;
+package com.kerneldc.fls.domain.enginelog;
 
 import java.time.OffsetDateTime;
 
 import com.kerneldc.fls.domain.AbstractPersistableEntity;
+import com.kerneldc.fls.domain.EnginePositionEnum;
 import com.kerneldc.fls.domain.LogicalKeyHolder;
-import com.kerneldc.fls.domain.enginelog.EngineLog;
-import com.kerneldc.fls.domain.journeylog.JourneyLog;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
 @Getter @Setter
-public class LogSheet extends AbstractPersistableEntity {
+public class EngineLog extends AbstractPersistableEntity {
 
 	private static final long serialVersionUID = 1L;
 	
 	@Setter(AccessLevel.NONE)
 	private String registration;
 	@Setter(AccessLevel.NONE)
+	@Enumerated(EnumType.STRING)
+	private EnginePositionEnum position;
+	@Setter(AccessLevel.NONE)
 	@Column(name = "\"date\"")
 	private OffsetDateTime date;
-	@Column(name = "\"from\"")
-	private String from;
-	@Column(name = "\"to\"")
-	private String to;
 	private Float airtime;
-	private Float flightTime;
+	private String comment;
 
-	@OneToOne(cascade = CascadeType.ALL, optional = false)
-    @JoinColumn(name = "journey_log_id")
-	private JourneyLog journeyLog;
-	@OneToOne(cascade = CascadeType.ALL, optional = false)
-    @JoinColumn(name = "engine_log_id")
-	private EngineLog engineLog;
-	
 	public void setRegistration(String registration) {
 		this.registration = registration;
 		setLogicalKeyHolder();
 	}
 	
+	public void setPosition(EnginePositionEnum position) {
+		this.position = position;
+		setLogicalKeyHolder();
+	}
+
 	public void setDate(OffsetDateTime date) {
 		this.date = date;
 		setLogicalKeyHolder();
@@ -53,7 +48,7 @@ public class LogSheet extends AbstractPersistableEntity {
 	
 	@Override
 	protected void setLogicalKeyHolder() {
-		var logicalKeyHolder = LogicalKeyHolder.build(registration, date);
+		var logicalKeyHolder = LogicalKeyHolder.build(registration, position, date);
 		super.setLogicalKeyHolder(logicalKeyHolder);
 	}
 

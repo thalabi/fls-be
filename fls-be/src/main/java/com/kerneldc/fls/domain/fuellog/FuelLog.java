@@ -3,10 +3,13 @@ package com.kerneldc.fls.domain.fuellog;
 import java.time.OffsetDateTime;
 
 import com.kerneldc.fls.domain.AbstractPersistableEntity;
+import com.kerneldc.fls.domain.FuelTransactionTypeEnum;
 import com.kerneldc.fls.domain.LogicalKeyHolder;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,6 +25,8 @@ public class FuelLog extends AbstractPersistableEntity {
 	@Setter(AccessLevel.NONE)
 	@Column(name = "\"date\"")
 	private OffsetDateTime date;
+	@Enumerated(EnumType.STRING)
+	private FuelTransactionTypeEnum transactionType;
 	@Column(name = "\"left\"")
 	private Float left;
 	@Column(name = "\"right\"")

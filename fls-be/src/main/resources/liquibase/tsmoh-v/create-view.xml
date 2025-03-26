@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+						http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+						http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">
+
+	<changeSet author="Tarif Halabi (generated)" id="tsmoh-v">
+
+ 		<sql>
+		<![CDATA[
+		drop view if exists tsmoh_v;
+		]]>         
+		</sql>
+
+    	<createView viewName="tsmoh_v">
+			<![CDATA[
+			with initial_tsmoh_and_airtime as (
+				select registration, initial_tsmoh tsmoh from ac_parameters ap
+				union all
+				select registration, airtime tsmoh from engine_log el 
+			)
+			select row_number() over() id, registration, sum(tsmoh) tsmoh from initial_tsmoh_and_airtime group by registration
+ 			]]>
+		</createView>
+
+    </changeSet>
+
+</databaseChangeLog>

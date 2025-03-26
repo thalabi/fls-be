@@ -1,24 +1,19 @@
-package com.kerneldc.fls.domain.logsheet;
+package com.kerneldc.fls.domain.journeylog;
 
 import java.time.OffsetDateTime;
 
 import com.kerneldc.fls.domain.AbstractPersistableEntity;
 import com.kerneldc.fls.domain.LogicalKeyHolder;
-import com.kerneldc.fls.domain.enginelog.EngineLog;
-import com.kerneldc.fls.domain.journeylog.JourneyLog;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
 @Getter @Setter
-public class LogSheet extends AbstractPersistableEntity {
+public class JourneyLog extends AbstractPersistableEntity {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -32,15 +27,8 @@ public class LogSheet extends AbstractPersistableEntity {
 	@Column(name = "\"to\"")
 	private String to;
 	private Float airtime;
-	private Float flightTime;
+	private String comment;
 
-	@OneToOne(cascade = CascadeType.ALL, optional = false)
-    @JoinColumn(name = "journey_log_id")
-	private JourneyLog journeyLog;
-	@OneToOne(cascade = CascadeType.ALL, optional = false)
-    @JoinColumn(name = "engine_log_id")
-	private EngineLog engineLog;
-	
 	public void setRegistration(String registration) {
 		this.registration = registration;
 		setLogicalKeyHolder();

@@ -3,13 +3,21 @@ package com.kerneldc.fls.domain;
 import java.util.Arrays;
 
 import com.kerneldc.fls.domain.acparameters.AcParameters;
+import com.kerneldc.fls.domain.enginelog.EngineLog;
 import com.kerneldc.fls.domain.fuellog.FuelLog;
+import com.kerneldc.fls.domain.journeylog.JourneyLog;
 import com.kerneldc.fls.domain.logsheet.LogSheet;
+import com.kerneldc.fls.domain.tsmoh.TsmohV;
+import com.kerneldc.fls.domain.tsnv.TsnV;
 
 public enum FlsEntityEnum implements IEntityEnum {
 	AC_PARAMETERS(AcParameters.class, false, new String[] {}),
 	FUEL_LOG(FuelLog.class, false, new String[] {}),
 	LOG_SHEET(LogSheet.class, false, new String[] {}),
+	JOURNEY_LOG(JourneyLog.class, false, new String[] {}),
+	ENGINE_LOG(EngineLog.class, false, new String[] {}),
+	TSN_V(TsnV.class, true, new String[] {}),
+	TSMOH_V(TsmohV.class, true, new String[] {}),
 	;
 
 	Class<? extends AbstractEntity> entity;

@@ -8,58 +8,38 @@
 						http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
 						http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">
 
-	<changeSet author="Tarif Halabi (generated)" id="log-sheet-create-table">
-        <createTable tableName="log_sheet">
+	<changeSet author="Tarif Halabi" id="journey-log-create-table">
+        <createTable tableName="journey_log">
         
             <column autoIncrement="true" name="id" type="BIGINT">
-				<constraints nullable="false" primaryKey="true"
-					primaryKeyName="log_sheet_pkey" />
+                <constraints nullable="false" primaryKey="true" primaryKeyName="journey_log_pkey"/>
             </column>
             <column name="lk" type="VARCHAR(4000)">
-				<constraints nullable="false" />
+                <constraints nullable="false"/>
             </column>
             
             <column name="registration" type="VARCHAR(6)">
-				<constraints nullable="false" />
+                <constraints nullable="false"/>
             </column>
             <column name="date" type="TIMESTAMP WITH TIME ZONE">
-				<constraints nullable="false" />
+                <constraints nullable="false"/>
             </column>
 			<column name="from" type="VARCHAR(4)">
-				<constraints nullable="false" />
+                <constraints nullable="false"/>
 			</column>
 			<column name="to" type="VARCHAR(4)">
-				<constraints nullable="false" />
+                <constraints nullable="false"/>
 			</column>
 
             <column name="airtime" type="numeric(2, 1)">
-				<constraints nullable="false" />
+                <constraints nullable="false"/>
             </column>
-            <column name="flight_time" type="numeric(2, 1)">
-				<constraints nullable="false" />
-            </column>
-
-			<column name="journey_log_id" type="bigint">
-				<constraints nullable="false" /> 
-            </column>
-			<column name="engine_log_id" type="bigint">
-				<constraints nullable="false" /> 
-            </column>
-
+            <column name="comment" type="varchar(4000)"/>
             
             <column name="version" type="BIGINT">
-				<constraints nullable="false" />
+                <constraints nullable="false"/>
             </column>
         </createTable>
-		<addUniqueConstraint columnNames="lk" constraintName="log_sheet_lk_key"
-			tableName="log_sheet" />
-
-		<addForeignKeyConstraint constraintName="log_sheet_fk_1"
-			baseTableName="log_sheet" baseColumnNames="journey_log_id" 
-			referencedTableName="journey_log" referencedColumnNames="id" /> 
-		<addForeignKeyConstraint constraintName="log_sheet_fk_2"
-			baseTableName="log_sheet" baseColumnNames="engine_log_id" 
-			referencedTableName="engine_log" referencedColumnNames="id" /> 
-        
+        <addUniqueConstraint columnNames="lk" constraintName="journey_log_lk_key" tableName="journey_log"/>
 	</changeSet>
 </databaseChangeLog>

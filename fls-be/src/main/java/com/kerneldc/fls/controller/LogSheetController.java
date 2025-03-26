@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.common.base.Preconditions;
+import com.kerneldc.fls.exeption.ApplicationException;
 import com.kerneldc.fls.service.LogSheetService;
 
 import jakarta.validation.Valid;
@@ -23,15 +25,49 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class LogSheetController {
 
+	public static final String LOG_SHEET_REQUEST_FORMAT = "logSheetRequest: {}";
 	private final LogSheetService logSheetService;
 	
-	public record LogSheetRequest(String registration, OffsetDateTime date, String from, String to, Float airtime, Float flightTime, Float leftTankUsed, Float rightTankUsed) {}
+	public record LogSheetAndFuelLogRequest(Long id, String registration, OffsetDateTime date, String from, String to,
+			Float airtime, Float flightTime, Float leftTankUsed, Float rightTankUsed) {
+	}
+	public record LogSheetRequest(Long id, String registration, OffsetDateTime date, String from, String to,
+			Float airtime, Float flightTime) {
+	}
+	
+	@PostMapping("/addLogSheetAndFuelLog")
+	public ResponseEntity<String> addLogSheetAndFuelLog(@Valid @RequestBody LogSheetAndFuelLogRequest logSheetAndFuelLogRequest) {
+    	LOGGER.info(LOG_BEGIN);
+		LOGGER.info("logSheetAndFuelLogRequest: {}", logSheetAndFuelLogRequest);
+		logSheetService.addLogSheetAndFuelLog(logSheetAndFuelLogRequest);
+    	LOGGER.info(LOG_END);
+    	return ResponseEntity.ok(StringUtils.EMPTY);
+	}
 
 	@PostMapping("/addLogSheet")
 	public ResponseEntity<String> addLogSheet(@Valid @RequestBody LogSheetRequest logSheetRequest) {
     	LOGGER.info(LOG_BEGIN);
-		LOGGER.info("logSheetRequest: {}", logSheetRequest);
+		LOGGER.info(LOG_SHEET_REQUEST_FORMAT, logSheetRequest);
 		logSheetService.addLogSheet(logSheetRequest);
+    	LOGGER.info(LOG_END);
+    	return ResponseEntity.ok(StringUtils.EMPTY);
+	}
+	
+	@PostMapping("/updateLogSheet")
+	public ResponseEntity<String> updateLogSheet(@Valid @RequestBody LogSheetRequest logSheetRequest) throws ApplicationException {
+    	LOGGER.info(LOG_BEGIN);
+		LOGGER.info(LOG_SHEET_REQUEST_FORMAT, logSheetRequest);
+		logSheetService.updateLogSheet(logSheetRequest);
+    	LOGGER.info(LOG_END);
+    	return ResponseEntity.ok(StringUtils.EMPTY);
+	}
+	
+	@PostMapping("/deleteLogSheet")
+	public ResponseEntity<String> deleteLogSheet(@Valid @RequestBody LogSheetRequest logSheetRequest) {
+    	LOGGER.info(LOG_BEGIN);
+		LOGGER.info(LOG_SHEET_REQUEST_FORMAT, logSheetRequest);
+		Preconditions.checkArgument(logSheetRequest.id() != null, "id cannot be null");
+		logSheetService.deleteLogSheet(logSheetRequest);
     	LOGGER.info(LOG_END);
     	return ResponseEntity.ok(StringUtils.EMPTY);
 	}

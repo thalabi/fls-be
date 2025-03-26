@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+						http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+						http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">
+
+	<changeSet author="Tarif Halabi (generated)" id="tsn-v">
+
+ 		<sql>
+		<![CDATA[
+		drop view if exists tsn_v;
+		]]>         
+		</sql>
+
+    	<createView viewName="tsn_v">
+			<![CDATA[
+			with initial_tsn_and_airtime as (
+				select registration, initial_tsn tsn from ac_parameters ap
+				union all
+				select registration, airtime tsn from journey_log jl
+			)
+			select row_number() over() id, registration, sum(tsn) tsn from initial_tsn_and_airtime group by registration
+ 			]]>
+		</createView>
+
+    </changeSet>
+
+</databaseChangeLog>

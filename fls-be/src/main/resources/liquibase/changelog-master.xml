@@ -13,5 +13,10 @@
         
         <include file="liquibase/ac-parameters/create-table.xml"/>
         <include file="liquibase/fuel-log/create-table.xml"/>
+        <include file="liquibase/journey-log/create-table.xml"/>
+        <include file="liquibase/engine-log/create-table.xml"/>
         <include file="liquibase/log-sheet/create-table.xml"/>
+        
+        <include file="liquibase/tsn-v/create-view.xml"/>
+        <include file="liquibase/tsmoh-v/create-view.xml"/>
 </databaseChangeLog>
