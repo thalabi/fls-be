@@ -5,11 +5,15 @@ import java.time.OffsetDateTime;
 import com.kerneldc.fls.domain.AbstractPersistableEntity;
 import com.kerneldc.fls.domain.FuelTransactionTypeEnum;
 import com.kerneldc.fls.domain.LogicalKeyHolder;
+import com.kerneldc.fls.domain.fuelprice.FuelPrice;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,6 +23,7 @@ import lombok.Setter;
 public class FuelLog extends AbstractPersistableEntity {
 
 	private static final long serialVersionUID = 1L;
+	public static final String PROPERTY_FUEL_PRICE = "fuelPrice";
 	
 	@Setter(AccessLevel.NONE)
 	private String registration;
@@ -33,10 +38,10 @@ public class FuelLog extends AbstractPersistableEntity {
 	private Float right;
 	private Float changeInLeft;
 	private Float changeInRight;
-	private Float pricePerLitre;
-	private String airport;
-	private String fbo;
-	private String comment;
+
+	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE /* all except delete */}, optional = true)
+    @JoinColumn(name = "fuel_price_id")
+	private FuelPrice fuelPrice;
 
 	public void setRegistration(String registration) {
 		this.registration = registration;

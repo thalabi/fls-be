@@ -29,8 +29,6 @@ public class LogSheetService {
 
 	private final LogSheetRepository logSheetRepository;
 	private final FuelLogRepository fuelLogRepository;
-//	private final JourneyLogRepository journeyLogRepository;
-//	private final EngineLogRepository engineLogRepository;
 	
 	@Transactional
 	public void addLogSheetAndFuelLog(@Valid LogSheetAndFuelLogRequest logSheetAndFuelLogRequest) {
@@ -118,25 +116,21 @@ public class LogSheetService {
 		logSheet.setFlightTime(logSheetRequest.flightTime());
 		
 		// journey_log row
-//		if (BooleanUtils.isTrue(logSheetRequest.updateJourneyLog())) {
-			var journeyLog = new JourneyLog();
-			journeyLog.setRegistration(registration);
-			journeyLog.setDate(date);
-			journeyLog.setFrom(from);
-			journeyLog.setTo(to);
-			journeyLog.setAirtime(airtime);
-			logSheet.setJourneyLog(journeyLog);
-//		}
+		var journeyLog = new JourneyLog();
+		journeyLog.setRegistration(registration);
+		journeyLog.setDate(date);
+		journeyLog.setFrom(from);
+		journeyLog.setTo(to);
+		journeyLog.setAirtime(airtime);
+		logSheet.setJourneyLog(journeyLog);
 
 		// engine_log row
-//		if (BooleanUtils.isTrue(logSheetRequest.updateEngineLog())) {
-			var engineLog = new EngineLog();
-			engineLog.setRegistration(registration);
-			engineLog.setPosition(EnginePositionEnum.CENTER);
-			engineLog.setDate(date);
-			engineLog.setAirtime(airtime);
-			logSheet.setEngineLog(engineLog);
-//		}
+		var engineLog = new EngineLog();
+		engineLog.setRegistration(registration);
+		engineLog.setPosition(EnginePositionEnum.CENTER);
+		engineLog.setDate(date);
+		engineLog.setAirtime(airtime);
+		logSheet.setEngineLog(engineLog);
 		
 		logSheetRepository.save(logSheet);
 		
@@ -167,30 +161,29 @@ public class LogSheetService {
 		logSheet.setAirtime(airtime);
 		logSheet.setFlightTime(logSheetRequest.flightTime());
 		
-//		if (BooleanUtils.isTrue(logSheetRequest.updateJourneyLog())) {
-			logSheet.getJourneyLog().setRegistration(registration);
-			logSheet.getJourneyLog().setDate(date);
-			logSheet.getJourneyLog().setFrom(from);
-			logSheet.getJourneyLog().setTo(to);
-			logSheet.getJourneyLog().setAirtime(airtime);
-//		}
+		logSheet.getJourneyLog().setRegistration(registration);
+		logSheet.getJourneyLog().setDate(date);
+		logSheet.getJourneyLog().setFrom(from);
+		logSheet.getJourneyLog().setTo(to);
+		logSheet.getJourneyLog().setAirtime(airtime);
 
-//		if (BooleanUtils.isTrue(logSheetRequest.updateEngineLog())) {
-			logSheet.getEngineLog().setRegistration(registration);
-			logSheet.getEngineLog().setDate(date);
-			logSheet.getEngineLog().setAirtime(airtime);
-//		}
+		logSheet.getEngineLog().setRegistration(registration);
+		logSheet.getEngineLog().setDate(date);
+		logSheet.getEngineLog().setAirtime(airtime);
 
-		logSheetRepository.save(logSheet);
 		
 		LOGGER.info(LOG_END);
 	}
 
 	@Transactional
-	public void deleteLogSheet(LogSheetRequest logSheetRequest) {
+	public void deleteLogSheet(LogSheetRequest logSheetRequest) throws ApplicationException {
     	LOGGER.info(LOG_BEGIN);
 
 		LOGGER.info(LOG_SHEET_REQUEST_FORMAT, logSheetRequest);
+		var logSheetOptional = logSheetRepository.findById(logSheetRequest.id());
+		if (logSheetOptional.isEmpty()) {
+			throw new ApplicationException(String.format("Log sheet with id [%d] was not found", logSheetRequest.id()));
+		}
 		logSheetRepository.deleteById(logSheetRequest.id());
 		
 		

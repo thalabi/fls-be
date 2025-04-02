@@ -1,4 +1,4 @@
-package com.kerneldc.fls.domain.journeylog;
+package com.kerneldc.fls.domain.fuelprice;
 
 import java.time.OffsetDateTime;
 
@@ -7,38 +7,35 @@ import com.kerneldc.fls.domain.LogicalKeyHolder;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Transient;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
 @Getter @Setter
-public class JourneyLog extends AbstractPersistableEntity {
+public class FuelPrice extends AbstractPersistableEntity {
 
 	private static final long serialVersionUID = 1L;
 	
 	@Setter(AccessLevel.NONE)
-	private String registration;
+	private String airport;
+	@Setter(AccessLevel.NONE)
+	private String fbo;
 	@Setter(AccessLevel.NONE)
 	@Column(name = "\"date\"")
 	private OffsetDateTime date;
-	@Column(name = "\"from\"")
-	private String from;
-	@Column(name = "\"to\"")
-	private String to;
-	@Transient
-	private OffsetDateTime takeoffTime;
-	@Transient
-	private OffsetDateTime landingTime;
-	private Float airtime;
+
+	private Float pricePerLitre;
 	private String comment;
 
-	public void setRegistration(String registration) {
-		this.registration = registration;
+	public void setAirport(String airport) {
+		this.airport = airport;
 		setLogicalKeyHolder();
 	}
-	
+	public void setFbo(String fbo) {
+		this.fbo = fbo;
+		setLogicalKeyHolder();
+	}
 	public void setDate(OffsetDateTime date) {
 		this.date = date;
 		setLogicalKeyHolder();
@@ -46,8 +43,9 @@ public class JourneyLog extends AbstractPersistableEntity {
 	
 	@Override
 	protected void setLogicalKeyHolder() {
-		var logicalKeyHolder = LogicalKeyHolder.build(registration, date);
+		var logicalKeyHolder = LogicalKeyHolder.build(airport, fbo, date);
 		super.setLogicalKeyHolder(logicalKeyHolder);
 	}
+
 
 }

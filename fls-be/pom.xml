@@ -19,6 +19,7 @@
 		<repo-url>http://localhost:8081</repo-url>
 		<maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
 		<timestamp>${maven.build.timestamp}</timestamp>
+		<mockito.version>5.14.2</mockito.version>
 	</properties>
 
 	<url/>

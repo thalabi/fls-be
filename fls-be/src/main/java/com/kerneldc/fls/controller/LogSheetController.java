@@ -29,9 +29,11 @@ public class LogSheetController {
 	private final LogSheetService logSheetService;
 	
 	public record LogSheetAndFuelLogRequest(Long id, String registration, OffsetDateTime date, String from, String to,
+			OffsetDateTime takeoffTime, OffsetDateTime landingTime,
 			Float airtime, Float flightTime, Float leftTankUsed, Float rightTankUsed) {
 	}
 	public record LogSheetRequest(Long id, String registration, OffsetDateTime date, String from, String to,
+			OffsetDateTime takeoffTime, OffsetDateTime landingTime,
 			Float airtime, Float flightTime) {
 	}
 	
@@ -63,7 +65,7 @@ public class LogSheetController {
 	}
 	
 	@PostMapping("/deleteLogSheet")
-	public ResponseEntity<String> deleteLogSheet(@Valid @RequestBody LogSheetRequest logSheetRequest) {
+	public ResponseEntity<String> deleteLogSheet(@Valid @RequestBody LogSheetRequest logSheetRequest) throws ApplicationException {
     	LOGGER.info(LOG_BEGIN);
 		LOGGER.info(LOG_SHEET_REQUEST_FORMAT, logSheetRequest);
 		Preconditions.checkArgument(logSheetRequest.id() != null, "id cannot be null");
