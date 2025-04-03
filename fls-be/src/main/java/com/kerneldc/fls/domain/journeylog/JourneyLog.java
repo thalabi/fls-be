@@ -7,7 +7,6 @@ import com.kerneldc.fls.domain.LogicalKeyHolder;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Transient;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,9 +26,7 @@ public class JourneyLog extends AbstractPersistableEntity {
 	private String from;
 	@Column(name = "\"to\"")
 	private String to;
-	@Transient
 	private OffsetDateTime takeoffTime;
-	@Transient
 	private OffsetDateTime landingTime;
 	private Float airtime;
 	private String comment;

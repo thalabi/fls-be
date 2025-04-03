@@ -12,7 +12,6 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
-import jakarta.persistence.Transient;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -32,9 +31,7 @@ public class LogSheet extends AbstractPersistableEntity {
 	private String from;
 	@Column(name = "\"to\"")
 	private String to;
-	@Transient
 	private OffsetDateTime takeoffTime;
-	@Transient
 	private OffsetDateTime landingTime;
 	private Float airtime;
 	private Float flightTime;

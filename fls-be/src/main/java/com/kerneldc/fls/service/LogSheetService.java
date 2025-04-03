@@ -40,6 +40,8 @@ public class LogSheetService {
 		var date = logSheetAndFuelLogRequest.date();
 		var from = logSheetAndFuelLogRequest.from();
 		var to = logSheetAndFuelLogRequest.to();
+		var takeoffTime = logSheetAndFuelLogRequest.takeoffTime();
+		var landingTime = logSheetAndFuelLogRequest.landingTime();
 		var airtime = logSheetAndFuelLogRequest.airtime();
 		
 		// log_sheet row
@@ -48,6 +50,8 @@ public class LogSheetService {
 		logSheet.setDate(date);
 		logSheet.setFrom(from);
 		logSheet.setTo(to);
+		logSheet.setTakeoffTime(takeoffTime);
+		logSheet.setLandingTime(landingTime);
 		logSheet.setAirtime(logSheetAndFuelLogRequest.airtime());
 		logSheet.setFlightTime(logSheetAndFuelLogRequest.flightTime());
 		
@@ -65,6 +69,8 @@ public class LogSheetService {
 		journeyLog.setDate(date);
 		journeyLog.setFrom(from);
 		journeyLog.setTo(to);
+		journeyLog.setTakeoffTime(takeoffTime);
+		journeyLog.setLandingTime(landingTime);
 		journeyLog.setAirtime(airtime);
 		logSheet.setJourneyLog(journeyLog);
 
@@ -89,9 +95,7 @@ public class LogSheetService {
 		fuelLog.setChangeInRight(-1 * logSheetAndFuelLogRequest.rightTankUsed());
 		fuelLogRepository.save(fuelLog);
 		
-
     	LOGGER.info(LOG_END);
-		
 	}
 
 	@Transactional
@@ -104,6 +108,8 @@ public class LogSheetService {
 		var date = logSheetRequest.date();
 		var from = logSheetRequest.from();
 		var to = logSheetRequest.to();
+		var takeoffTime = logSheetRequest.takeoffTime();
+		var landingTime = logSheetRequest.landingTime();
 		var airtime = logSheetRequest.airtime();
 		
 		// log_sheet row
@@ -112,6 +118,8 @@ public class LogSheetService {
 		logSheet.setDate(date);
 		logSheet.setFrom(from);
 		logSheet.setTo(to);
+		logSheet.setTakeoffTime(takeoffTime);
+		logSheet.setLandingTime(landingTime);
 		logSheet.setAirtime(airtime);
 		logSheet.setFlightTime(logSheetRequest.flightTime());
 		
@@ -121,6 +129,8 @@ public class LogSheetService {
 		journeyLog.setDate(date);
 		journeyLog.setFrom(from);
 		journeyLog.setTo(to);
+		journeyLog.setTakeoffTime(takeoffTime);
+		journeyLog.setLandingTime(landingTime);
 		journeyLog.setAirtime(airtime);
 		logSheet.setJourneyLog(journeyLog);
 
@@ -152,12 +162,16 @@ public class LogSheetService {
 		var date = logSheetRequest.date();
 		var from = logSheetRequest.from();
 		var to = logSheetRequest.to();
+		var takeoffTime = logSheetRequest.takeoffTime();
+		var landingTime = logSheetRequest.landingTime();
 		var airtime = logSheetRequest.airtime();
 
 		logSheet.setRegistration(registration);
 		logSheet.setDate(date);
 		logSheet.setFrom(from);
 		logSheet.setTo(to);
+		logSheet.setTakeoffTime(takeoffTime);
+		logSheet.setLandingTime(landingTime);
 		logSheet.setAirtime(airtime);
 		logSheet.setFlightTime(logSheetRequest.flightTime());
 		
@@ -165,6 +179,8 @@ public class LogSheetService {
 		logSheet.getJourneyLog().setDate(date);
 		logSheet.getJourneyLog().setFrom(from);
 		logSheet.getJourneyLog().setTo(to);
+		logSheet.getJourneyLog().setTakeoffTime(takeoffTime);
+		logSheet.getJourneyLog().setLandingTime(landingTime);
 		logSheet.getJourneyLog().setAirtime(airtime);
 
 		logSheet.getEngineLog().setRegistration(registration);
