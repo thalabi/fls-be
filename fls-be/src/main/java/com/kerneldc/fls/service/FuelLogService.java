@@ -62,98 +62,41 @@ public class FuelLogService {
     	LOGGER.info(LOG_END);
 		
 	}
-/*
-	@Transactional
-	public void addLogSheet(LogSheetRequest logSheetRequest) {
-    	LOGGER.info(LOG_BEGIN);
-
-		LOGGER.info(LOG_SHEET_REQUEST_FORMAT, logSheetRequest);
-		
-		var registration = logSheetRequest.registration();
-		var date = logSheetRequest.date();
-		var from = logSheetRequest.from();
-		var to = logSheetRequest.to();
-		var airtime = logSheetRequest.airtime();
-		
-		// log_sheet row
-		var logSheet = new LogSheet();
-		logSheet.setRegistration(registration);
-		logSheet.setDate(date);
-		logSheet.setFrom(from);
-		logSheet.setTo(to);
-		logSheet.setAirtime(airtime);
-		logSheet.setFlightTime(logSheetRequest.flightTime());
-		
-		// journey_log row
-//		if (BooleanUtils.isTrue(logSheetRequest.updateJourneyLog())) {
-			var journeyLog = new JourneyLog();
-			journeyLog.setRegistration(registration);
-			journeyLog.setDate(date);
-			journeyLog.setFrom(from);
-			journeyLog.setTo(to);
-			journeyLog.setAirtime(airtime);
-			logSheet.setJourneyLog(journeyLog);
-//		}
-
-		// engine_log row
-//		if (BooleanUtils.isTrue(logSheetRequest.updateEngineLog())) {
-			var engineLog = new EngineLog();
-			engineLog.setRegistration(registration);
-			engineLog.setPosition(EnginePositionEnum.CENTER);
-			engineLog.setDate(date);
-			engineLog.setAirtime(airtime);
-			logSheet.setEngineLog(engineLog);
-//		}
-		
-		logSheetRepository.save(logSheet);
-		
-    	LOGGER.info(LOG_END);
-	}
 
 	@Transactional
-	public void updateLogSheet(@Valid LogSheetRequest logSheetRequest) throws ApplicationException {
+	public void updateFuelLog(@Valid FuelLogRequest fuelLogRequest) throws ApplicationException {
     	LOGGER.info(LOG_BEGIN);
 
-		LOGGER.info(LOG_SHEET_REQUEST_FORMAT, logSheetRequest);
-		var logSheetOptional = logSheetRepository.findById(logSheetRequest.id());
-		if (logSheetOptional.isEmpty()) {
-			throw new ApplicationException(String.format("Log sheet with id [%d] was not found", logSheetRequest.id()));
+		LOGGER.info(FUEL_LOG_REQUEST_FORMAT, fuelLogRequest);
+		var fuelLog = fuelLogRepository.findById(fuelLogRequest.id()).orElseGet(null);
+		if (fuelLog == null) {
+			throw new ApplicationException(String.format("Log sheet with id [%d] was not found", fuelLogRequest.id()));
 		}
-		var logSheet = logSheetOptional.get();
 
-		var registration = logSheetRequest.registration();
-		var date = logSheetRequest.date();
-		var from = logSheetRequest.from();
-		var to = logSheetRequest.to();
-		var airtime = logSheetRequest.airtime();
+		fuelLog.setDate(fuelLogRequest.date());
+		fuelLog.setTransactionType(fuelLogRequest.transactionType());
+		fuelLog.setLeft(fuelLogRequest.left());
+		fuelLog.setRight(fuelLogRequest.right());
+		fuelLog.setChangeInLeft(fuelLogRequest.changeInLeft());
+		fuelLog.setChangeInRight(fuelLogRequest.changeInRight());
 
-		logSheet.setRegistration(registration);
-		logSheet.setDate(date);
-		logSheet.setFrom(from);
-		logSheet.setTo(to);
-		logSheet.setAirtime(airtime);
-		logSheet.setFlightTime(logSheetRequest.flightTime());
-		
-//		if (BooleanUtils.isTrue(logSheetRequest.updateJourneyLog())) {
-			logSheet.getJourneyLog().setRegistration(registration);
-			logSheet.getJourneyLog().setDate(date);
-			logSheet.getJourneyLog().setFrom(from);
-			logSheet.getJourneyLog().setTo(to);
-			logSheet.getJourneyLog().setAirtime(airtime);
-//		}
+		if (fuelLogRequest.transactionType() == FuelTransactionTypeEnum.REFUEL) {
+			var fuelPrice = fuelLog.getFuelPrice();
+			fuelPrice.setAirport(fuelLogRequest.airport());
+			fuelPrice.setFbo(fuelLogRequest.fbo());
+			fuelPrice.setDate(fuelLogRequest.date());
+			fuelPrice.setPricePerLitre(fuelLogRequest.pricePerLitre());
+			fuelPrice.setComment(fuelLogRequest.comment());
+	
+		} else {
+			fuelLog.setFuelPrice(null);
+		}
 
-//		if (BooleanUtils.isTrue(logSheetRequest.updateEngineLog())) {
-			logSheet.getEngineLog().setRegistration(registration);
-			logSheet.getEngineLog().setDate(date);
-			logSheet.getEngineLog().setAirtime(airtime);
-//		}
-
-		logSheetRepository.save(logSheet);
+		fuelLogRepository.save(fuelLog);
 		
 		LOGGER.info(LOG_END);
 	}
 
- */
 	@Transactional
 	public void deleteFuelLog(FuelLogRequest fuelLogRequest) throws ApplicationException {
     	LOGGER.info(LOG_BEGIN);

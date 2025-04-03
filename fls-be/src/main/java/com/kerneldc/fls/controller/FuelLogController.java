@@ -65,23 +65,15 @@ public class FuelLogController {
     	return ResponseEntity.ok(StringUtils.EMPTY);
 	}
 
-//	@PostMapping("/addLogSheet")
-//	public ResponseEntity<String> addLogSheet(@Valid @RequestBody LogSheetRequest logSheetRequest) {
-//    	LOGGER.info(LOG_BEGIN);
-//		LOGGER.info(LOG_SHEET_REQUEST_FORMAT, logSheetRequest);
-//		fuelLogService.addLogSheet(logSheetRequest);
-//    	LOGGER.info(LOG_END);
-//    	return ResponseEntity.ok(StringUtils.EMPTY);
-//	}
-//	
-//	@PostMapping("/updateLogSheet")
-//	public ResponseEntity<String> updateLogSheet(@Valid @RequestBody LogSheetRequest logSheetRequest) throws ApplicationException {
-//    	LOGGER.info(LOG_BEGIN);
-//		LOGGER.info(LOG_SHEET_REQUEST_FORMAT, logSheetRequest);
-//    	LOGGER.info(LOG_END);
-//    	return ResponseEntity.ok(StringUtils.EMPTY);
-//	}
-//	
+	@PostMapping("/updateFuelLog")
+	public ResponseEntity<String> updateFuelLog(@Valid @RequestBody FuelLogRequest fuelLogRequest) throws ApplicationException {
+    	LOGGER.info(LOG_BEGIN);
+		LOGGER.info(FUEL_LOG_REQUEST_FORMAT, fuelLogRequest);
+		fuelLogService.updateFuelLog(fuelLogRequest);
+    	LOGGER.info(LOG_END);
+    	return ResponseEntity.ok(StringUtils.EMPTY);
+	}
+	
 	@PostMapping("/deleteFuelLog")
 	public ResponseEntity<String> deleteFuelLog(@Valid @RequestBody FuelLogRequest fuelLogRequest) throws ApplicationException {
     	LOGGER.info(LOG_BEGIN);
