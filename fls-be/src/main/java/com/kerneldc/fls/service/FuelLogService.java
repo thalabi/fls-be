@@ -82,6 +82,10 @@ public class FuelLogService {
 
 		if (fuelLogRequest.transactionType() == FuelTransactionTypeEnum.REFUEL) {
 			var fuelPrice = fuelLog.getFuelPrice();
+			if (fuelPrice == null) {
+				fuelPrice = new FuelPrice();
+				fuelLog.setFuelPrice(fuelPrice);
+			}
 			fuelPrice.setAirport(fuelLogRequest.airport());
 			fuelPrice.setFbo(fuelLogRequest.fbo());
 			fuelPrice.setDate(fuelLogRequest.date());
