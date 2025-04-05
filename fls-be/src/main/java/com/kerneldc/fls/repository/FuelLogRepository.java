@@ -10,7 +10,9 @@ import com.kerneldc.fls.domain.fuellog.FuelLog;
 public interface FuelLogRepository extends BaseTableRepository<FuelLog, Long>{
 
 	List<FuelLog> findTopByRegistrationOrderByDateDesc(String registration);
-	List<FuelLog> findByRegistrationAndDate(String registration1, OffsetDateTime date1);
+	List<FuelLog> findByRegistrationAndDate(String registration, OffsetDateTime date);
+	
+	void deleteByRegistrationAndDateBefore(String registration, OffsetDateTime date);
 	
 	@Override
 	default IEntityEnum canHandle() {
