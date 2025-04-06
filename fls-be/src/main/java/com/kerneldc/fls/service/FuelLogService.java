@@ -80,8 +80,8 @@ public class FuelLogService {
 		fuelLog.setChangeInLeft(fuelLogRequest.changeInLeft());
 		fuelLog.setChangeInRight(fuelLogRequest.changeInRight());
 
+		var fuelPrice = fuelLog.getFuelPrice();
 		if (fuelLogRequest.transactionType() == FuelTransactionTypeEnum.REFUEL) {
-			var fuelPrice = fuelLog.getFuelPrice();
 			if (fuelPrice == null) {
 				fuelPrice = new FuelPrice();
 				fuelLog.setFuelPrice(fuelPrice);
@@ -93,6 +93,9 @@ public class FuelLogService {
 			fuelPrice.setComment(fuelLogRequest.comment());
 	
 		} else {
+			if (fuelPrice != null) {
+				fuelPriceRepository.delete(fuelPrice);
+			}
 			fuelLog.setFuelPrice(null);
 		}
 
