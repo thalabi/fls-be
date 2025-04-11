@@ -11,6 +11,7 @@ import com.kerneldc.fls.domain.FuelTransactionTypeEnum;
 import com.kerneldc.fls.domain.fuellog.FuelLog;
 import com.kerneldc.fls.domain.fuelprice.FuelPrice;
 import com.kerneldc.fls.exeption.ApplicationException;
+import com.kerneldc.fls.repository.AcParametersRepository;
 import com.kerneldc.fls.repository.FuelLogRepository;
 import com.kerneldc.fls.repository.FuelPriceRepository;
 
@@ -26,12 +27,18 @@ public class FuelLogService {
 
 	private final FuelLogRepository fuelLogRepository;
 	private final FuelPriceRepository fuelPriceRepository;
+	private final AcParametersRepository acParametersRepository;
 	
 	@Transactional
 	public void addFuelLog(@Valid FuelLogRequest fuelLogRequest) {
     	LOGGER.info(LOG_BEGIN);
 
 		LOGGER.info(FUEL_LOG_REQUEST_FORMAT, fuelLogRequest);
+		
+		if (fuelLogRequest.transactionType() == FuelTransactionTypeEnum.REFUEL && topUp(fuelLogRequest)) {
+			LOGGER.info("Topped up");
+			fuelLogRepository.deleteInBulkByRegistration(fuelLogRequest.registration());
+		}
 		
 		var date = fuelLogRequest.date();
 		
@@ -61,6 +68,14 @@ public class FuelLogService {
 
     	LOGGER.info(LOG_END);
 		
+	}
+
+	private boolean topUp(@Valid FuelLogRequest fuelLogRequest) {
+		var acParameters = acParametersRepository.findByRegistration(fuelLogRequest.registration());
+		
+		var leftToppedUp = fuelLogRequest.left() + fuelLogRequest.changeInLeft() == acParameters.getEachTankCapacity(); 
+		var rightToppedUp = fuelLogRequest.right() + fuelLogRequest.changeInRight() == acParameters.getEachTankCapacity();
+		return leftToppedUp && rightToppedUp;
 	}
 
 	@Transactional
