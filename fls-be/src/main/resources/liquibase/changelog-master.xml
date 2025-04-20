@@ -21,4 +21,7 @@
         <include file="liquibase/tsn-v/create-view.xml"/>
         <include file="liquibase/tsmoh-v/create-view.xml"/>
         
+        <include file="liquibase/journey-log-v/create-view.xml"/>
+        <include file="liquibase/engine-log-v/create-view.xml"/>
+        
 </databaseChangeLog>
