@@ -59,6 +59,12 @@ public class AirportService {
 		}
 	}
 
+	public void refreshIdentifiersFromExternalApi() throws LoadingFromExternalApiException  {
+		LOGGER.info("Clearing identifierSet");
+		identifierSet.clear();
+		
+		loadIdentifiersFromExternalApi();
+	}
 	
 	public Boolean isIdentifierValid(String identifier) throws LoadingFromExternalApiException {
 		if (CollectionUtils.isEmpty(identifierSet)) {
