@@ -28,7 +28,7 @@ public class AirportService {
 	private final boolean urlLoggingEnabled;
 	private final String airportServiceUrl;
 	
-	private Set<String> identifierSet;
+	private Set<String> identifierSet= new HashSet<>();
 	
 	public AirportService(@Value("${httputil.url.logging.enabled:false}") boolean urlLoggingEnabled, @Value("${airport.service.url}") String airportServiceUrl) {
 		this.urlLoggingEnabled = urlLoggingEnabled;
@@ -51,7 +51,6 @@ public class AirportService {
 		LOGGER.debug(root.toPrettyString());
 		var identifiers = root.path("identifiers");
 		if (identifiers.isArray()) {
-			identifierSet = new HashSet<>();
 			for (JsonNode identifier : identifiers) {
 				identifierSet.add(identifier.asText());
 			}
