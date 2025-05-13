@@ -14,7 +14,9 @@ public class AcParameters extends AbstractPersistableEntity {
 
 	private static final long serialVersionUID = 1L;
 	
-	@Setter(AccessLevel.NONE)	private String registration;
+	@Setter(AccessLevel.NONE)
+	private String registration;
+	private String makeModel;
 	private Float initialTsn;
 	private Float initialTsmoh;
 	private Float eachTankCapacity;

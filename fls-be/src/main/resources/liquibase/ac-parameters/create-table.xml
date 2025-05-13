@@ -20,6 +20,9 @@
 			<column name="registration" type="VARCHAR(6)">
 				<constraints nullable="false" />
 			</column>
+			<column name="make_model" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
 			<column name="initial_tsn" type="numeric(6, 1)">
 				<constraints nullable="false" />
 			</column>
