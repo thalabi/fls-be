@@ -5,7 +5,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import com.kerneldc.fls.exeption.LoadingFromExternalApiException;
+import com.kerneldc.fls.exeption.ApplicationException;
 import com.kerneldc.fls.service.AirportService;
 import com.kerneldc.fls.util.EmailService;
 
@@ -28,7 +28,7 @@ public class BatchTasks {
 		}
 		try {
 			airportService.loadIdentifiersFromExternalApi();
-		} catch (LoadingFromExternalApiException e) {
+		} catch (ApplicationException e) {
 			var message = "Failed to load airport identifiers from external api";
 			e.addMessage(message);
 			e.printStackTrace();
@@ -43,7 +43,7 @@ public class BatchTasks {
 	public void refreshIdentifiers() {
 		try {
 			airportService.refreshIdentifiersFromExternalApi();
-		} catch (LoadingFromExternalApiException e) {
+		} catch (ApplicationException e) {
 			var message = "Failed to refresh airport identifiers from external api";
 			e.addMessage(message);
 			e.printStackTrace();

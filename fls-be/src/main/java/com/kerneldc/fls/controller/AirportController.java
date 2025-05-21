@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.kerneldc.fls.exeption.LoadingFromExternalApiException;
+import com.kerneldc.fls.exeption.ApplicationException;
 import com.kerneldc.fls.service.AirportService;
 
 import jakarta.validation.constraints.NotBlank;
@@ -27,7 +27,7 @@ public class AirportController {
 	private final AirportService airportService; 
 
 	@GetMapping("/isIdentifierValid")
-	public ResponseEntity<Map<String, Boolean>> isIdentifierValid(@RequestParam @NotBlank String identifier) throws LoadingFromExternalApiException {
+	public ResponseEntity<Map<String, Boolean>> isIdentifierValid(@RequestParam @NotBlank String identifier) throws ApplicationException {
     	LOGGER.info(LOG_BEGIN);
 		LOGGER.info("identifier: [{}]", identifier);
 		var valid = airportService.isIdentifierValid(identifier.toUpperCase());

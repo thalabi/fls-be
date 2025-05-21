@@ -3,6 +3,10 @@ import static com.kerneldc.fls.AppConstants.LOG_BEGIN;
 import static com.kerneldc.fls.AppConstants.LOG_END;
 import static com.kerneldc.fls.controller.LogSheetController.LOG_SHEET_REQUEST_FORMAT;
 
+import java.time.format.DateTimeFormatter;
+import java.util.Set;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import com.kerneldc.fls.controller.LogSheetController.LogSheetAndFuelLogRequest;
@@ -14,8 +18,14 @@ import com.kerneldc.fls.domain.fuellog.FuelLog;
 import com.kerneldc.fls.domain.journeylog.JourneyLog;
 import com.kerneldc.fls.domain.logsheet.LogSheet;
 import com.kerneldc.fls.exeption.ApplicationException;
+import com.kerneldc.fls.exeption.ApplicationRuntimeException;
+import com.kerneldc.fls.repository.AcParametersRepository;
 import com.kerneldc.fls.repository.FuelLogRepository;
 import com.kerneldc.fls.repository.LogSheetRepository;
+import com.kerneldc.fls.service.HttpService.RequestTypeEnum;
+import com.kerneldc.fls.util.namedparameter.FloatParam;
+import com.kerneldc.fls.util.namedparameter.NamedParameter;
+import com.kerneldc.fls.util.namedparameter.StringParam;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -27,9 +37,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class LogSheetService {
 
+	private final AcParametersRepository acParametersRepository;
 	private final LogSheetRepository logSheetRepository;
 	private final FuelLogRepository fuelLogRepository;
+
+	private final JwtTokenService jwtTokenService;
+	private final HttpService httpService;
 	
+	private static final DateTimeFormatter DATE_FORMATER_YYYY_MM_DD = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 	@Transactional
 	public void addLogSheetAndFuelLog(@Valid LogSheetAndFuelLogRequest logSheetAndFuelLogRequest) {
     	LOGGER.info(LOG_BEGIN);
@@ -95,9 +110,42 @@ public class LogSheetService {
 		fuelLog.setChangeInRight(-1 * logSheetAndFuelLogRequest.rightTankUsed());
 		fuelLogRepository.save(fuelLog);
 		
+		try {
+			addFlightLogPending(logSheetAndFuelLogRequest);
+		} catch (ApplicationException e) {
+			e.printStackTrace();
+			throw new ApplicationRuntimeException(e); // wrap with a ApplicationRuntimeException to cause a rollback
+		}
+		
     	LOGGER.info(LOG_END);
 	}
 
+	private void addFlightLogPending(LogSheetAndFuelLogRequest logSheetAndFuelLogRequest) throws ApplicationException {
+		var jwt = jwtTokenService.getJwtToken();
+		httpService.processRequest(RequestTypeEnum.FLIGHT_LOG_PENDING_ADD, 
+				createFlightLogPendingParameterSet(logSheetAndFuelLogRequest), jwt);
+		
+	}
+
+	private Set<NamedParameter> createFlightLogPendingParameterSet(LogSheetAndFuelLogRequest logSheetAndFuelLogRequest) {
+		var flightDate = logSheetAndFuelLogRequest.date().toLocalDate().format(DATE_FORMATER_YYYY_MM_DD);
+		var acParameters = acParametersRepository.findByRegistration(logSheetAndFuelLogRequest.registration());
+		String makeModel;
+		if (acParameters != null) {
+			makeModel = acParameters.getMakeModel();
+		} else {
+			LOGGER.warn("Could not find ac_parameters row with registration [{}]", logSheetAndFuelLogRequest.registration());
+			makeModel = StringUtils.EMPTY;
+		}
+		return 
+			Set.of(new StringParam("flightDate", flightDate),
+					new StringParam("routeFrom", logSheetAndFuelLogRequest.from()),
+					new StringParam("routeTo", logSheetAndFuelLogRequest.to()),
+					new FloatParam("flightTime", logSheetAndFuelLogRequest.flightTime()),
+					new StringParam("registration", logSheetAndFuelLogRequest.registration()),
+					new StringParam("makeModel", makeModel));
+	}
+	
 	@Transactional
 	public void addLogSheet(LogSheetRequest logSheetRequest) {
     	LOGGER.info(LOG_BEGIN);
