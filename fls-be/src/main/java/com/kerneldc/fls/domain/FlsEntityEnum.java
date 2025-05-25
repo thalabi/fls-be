@@ -10,6 +10,8 @@ import com.kerneldc.fls.domain.fuelprice.FuelPrice;
 import com.kerneldc.fls.domain.journeylog.JourneyLog;
 import com.kerneldc.fls.domain.journeylogv.JourneyLogV;
 import com.kerneldc.fls.domain.logsheet.LogSheet;
+import com.kerneldc.fls.domain.remoteapicall.RemoteApiCall;
+import com.kerneldc.fls.domain.remoteapicalllog.RemoteApiCallLog;
 import com.kerneldc.fls.domain.tsmoh.TsmohV;
 import com.kerneldc.fls.domain.tsnv.TsnV;
 
@@ -24,6 +26,8 @@ public enum FlsEntityEnum implements IEntityEnum {
 	TSMOH_V(TsmohV.class, true, new String[] {}),
 	JOURNEY_LOG_V(JourneyLogV.class, true, new String[] {}),
 	ENGINE_LOG_V(EngineLogV.class, true, new String[] {}),
+	REMOTE_API_CALL_LOG(RemoteApiCallLog.class, false, new String[] {}),
+	REMOTE_API_CALL_DETAIL(RemoteApiCall.class, false, new String[] {})
 	;
 
 	Class<? extends AbstractEntity> entity;

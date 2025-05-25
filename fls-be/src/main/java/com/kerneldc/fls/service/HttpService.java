@@ -36,7 +36,7 @@ public class HttpService {
 	private final String airportServiceApiUrl;
 	private final String flightLogPendingServiceApiUrl;
 
-	private final ObjectMapper objectMapper = new ObjectMapper();
+	private final ObjectMapper objectMapper;
 
 	public enum RequestTypeEnum {
 		FLIGHT_LOG_JWT_TOKEN,
@@ -47,11 +47,13 @@ public class HttpService {
 	public HttpService(@Value("${httpservice.url.logging.enabled:false}") boolean urlLoggingEnabled,
 			@Value("${flightlog.oauth2.server.url}") String flightLogOauth2ServerUrl,
 			@Value("${airport.service.url}") String airportServiceApiUrl,
-			@Value("${flight.log.pending.service.url}") String flightLogPendingServiceApiUrl) {
+			@Value("${flight.log.pending.service.url}") String flightLogPendingServiceApiUrl,
+			ObjectMapper objectMapper) {
 		this.urlLoggingEnabled = urlLoggingEnabled;
 		this.flightLogOauth2ServerUrl = flightLogOauth2ServerUrl;
 		this.airportServiceApiUrl = airportServiceApiUrl;
 		this.flightLogPendingServiceApiUrl = flightLogPendingServiceApiUrl;
+		this.objectMapper = objectMapper;
 	}
 
 	public NamedParameterSet processRequest(RequestTypeEnum requestTypeEnum, Set<NamedParameter> data) throws ApplicationException {
@@ -101,7 +103,7 @@ public class HttpService {
 			if (e instanceof InterruptedException) {
 				Thread.currentThread().interrupt();
 			}
-			var message = String.format("Sending request to URL [%s]failed. ", flightLogPendingServiceApiUrl);
+			var message = String.format("Sending request to URL [%s] failed. ", flightLogPendingServiceApiUrl);
 			throw new ApplicationException(message, e);
 		}
 
@@ -152,7 +154,7 @@ public class HttpService {
 			if (e instanceof InterruptedException) {
 				Thread.currentThread().interrupt();
 			}
-			var message = String.format("Fetching contents of URL [%s]failed. ", airportServiceApiUrl);
+			var message = String.format("Fetching contents of URL [%s] failed. ", airportServiceApiUrl);
 			throw new ApplicationException(message, e);
 		}
 		var httpStatusCode = response.statusCode();
@@ -210,7 +212,7 @@ public class HttpService {
 			if (e instanceof InterruptedException) {
 				Thread.currentThread().interrupt();
 			}
-			var message = String.format("Fetching contents of URL [%s]failed. ", flightLogOauth2ServerUrl);
+			var message = String.format("Fetching contents of URL [%s] failed. ", flightLogOauth2ServerUrl);
 			throw new ApplicationException(message, e);
 		}
 		var httpStatusCode = response.statusCode();

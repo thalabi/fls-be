@@ -11,9 +11,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.common.base.Preconditions;
 import com.kerneldc.fls.exeption.ApplicationException;
-import com.kerneldc.fls.service.LogSheetService;
+import com.kerneldc.fls.service.logsheet.LogSheetService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -38,7 +39,7 @@ public class LogSheetController {
 	}
 	
 	@PostMapping("/addLogSheetAndFuelLog")
-	public ResponseEntity<String> addLogSheetAndFuelLog(@Valid @RequestBody LogSheetAndFuelLogRequest logSheetAndFuelLogRequest) {
+	public ResponseEntity<String> addLogSheetAndFuelLog(@Valid @RequestBody LogSheetAndFuelLogRequest logSheetAndFuelLogRequest) throws JsonProcessingException {
     	LOGGER.info(LOG_BEGIN);
 		LOGGER.info("logSheetAndFuelLogRequest: {}", logSheetAndFuelLogRequest);
 		logSheetService.addLogSheetAndFuelLog(logSheetAndFuelLogRequest);

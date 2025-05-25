@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kerneldc.fls.exeption.ApplicationException;
-import com.kerneldc.fls.service.AirportService;
+import com.kerneldc.fls.service.airport.AirportService;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;

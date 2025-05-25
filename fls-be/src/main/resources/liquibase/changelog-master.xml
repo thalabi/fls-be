@@ -24,4 +24,7 @@
         <include file="liquibase/journey-log-v/create-view.xml"/>
         <include file="liquibase/engine-log-v/create-view.xml"/>
         
+        <include file="liquibase/remote-api-call/create-table.xml"/>
+        <include file="liquibase/remote-api-call-log/create-table.xml"/>
+        
 </databaseChangeLog>
