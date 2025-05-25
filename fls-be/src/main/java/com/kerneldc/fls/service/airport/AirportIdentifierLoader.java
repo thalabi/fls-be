@@ -13,8 +13,8 @@ import com.kerneldc.fls.exeption.ApplicationException;
 import com.kerneldc.fls.repository.RemoteApiCallLogRepository;
 import com.kerneldc.fls.service.AbstractRemoteApiCallBase;
 import com.kerneldc.fls.service.HttpService;
-import com.kerneldc.fls.service.JwtTokenService;
 import com.kerneldc.fls.service.HttpService.RequestTypeEnum;
+import com.kerneldc.fls.service.JwtTokenService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,8 +24,8 @@ public class AirportIdentifierLoader extends AbstractRemoteApiCallBase {
 
 	private final AirportService airportService;
 	
-		public AirportIdentifierLoader(RemoteApiCallLogRepository remoteApiCallLogRepository,
-			JwtTokenService jwtTokenService, HttpService httpService, AirportService airportService) {
+	public AirportIdentifierLoader(RemoteApiCallLogRepository remoteApiCallLogRepository,
+		JwtTokenService jwtTokenService, HttpService httpService, AirportService airportService) {
 		super(remoteApiCallLogRepository, jwtTokenService, httpService);
 		this.airportService = airportService;
 	}
