@@ -59,7 +59,7 @@ public class WebSecurityConfig {
 			httpSecurity.authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
 			.requestMatchers("/appInfoController/*", "/pingController/*").permitAll());
 			httpSecurity.authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
-			.requestMatchers("/actuator/*").hasRole("ACTUATOR")).httpBasic();
+			.requestMatchers("/actuator/*").hasRole("ACTUATOR")).httpBasic(Customizer.withDefaults());
 			httpSecurity.authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests.anyRequest().authenticated());
 		}
 		
@@ -75,7 +75,6 @@ public class WebSecurityConfig {
 		return httpSecurity.build();
 	}
 	
-	// test
 	@Bean
 	public UserDetailsService userDetailsService() {
 	    UserDetails admin = User.withUsername(actuatorUsername)
