@@ -13,8 +13,8 @@ import com.kerneldc.fls.exeption.ApplicationException;
 import com.kerneldc.fls.repository.RemoteApiCallLogRepository;
 import com.kerneldc.fls.service.AbstractRemoteApiCallBase;
 import com.kerneldc.fls.service.HttpService;
-import com.kerneldc.fls.service.JwtTokenService;
 import com.kerneldc.fls.service.HttpService.RequestTypeEnum;
+import com.kerneldc.fls.service.JwtTokenService;
 import com.kerneldc.fls.util.namedparameter.FloatParam;
 import com.kerneldc.fls.util.namedparameter.NamedParameter;
 import com.kerneldc.fls.util.namedparameter.StringParam;
@@ -31,17 +31,17 @@ public class FlightLogPendingNotifier extends AbstractRemoteApiCallBase {
 	}
 
 	@Retryable(retryFor = ApplicationException.class,
-	        maxAttemptsExpression = "${remote.api.call.retry.max.attempts:5}",
+	        maxAttemptsExpression = "${remote.api.call.retry.max.attempts:15}",
 	        backoff =
 	        	@Backoff(delayExpression = "${remote.api.call.retry.delay:30000}",
 	        		multiplierExpression = "${remote.api.call.retry.multiplier:2}",
-	        		maxDelayExpression = "${remote.api.call.retry.max.delay:480000}") // retry after 30 sec, 1 min, 2 min, 4 min
+	        		maxDelayExpression = "${remote.api.call.retry.max.delay:491520000}") // retry after 30 sec, 1 min, 2 min, 4 min, ... 8192 min(5.68 days)
 	)
 //	listeners = {"loggingRetryListener"}
 	public void addRemotely(LogSheetAddedEvent logSheetAddedEvent) throws ApplicationException {
 		var remoteApiCall = logSheetAddedEvent.getRemoteApiCall();
 		var retryCount = RetrySynchronizationManager.getContext().getRetryCount();
-		var nextDelay = delay * Math.pow(multiplier, retryCount);
+		var nextDelay = (retryCount != maxAttempts) ? delay * Math.pow(multiplier, retryCount) : 0;
 		
 		LOGGER.info("retryCount [{}] maxAttempts [{}], delay [{}], multiplier [{}] nextDelay [{}]", retryCount,
 				maxAttempts, delay, multiplier, nextDelay);
