@@ -138,13 +138,6 @@ public class LogSheetService {
 		var logSheetAddedEvent = new LogSheetAddedEvent(this, remoteApiCall, flightLogPendingVo);
 		eventPublisher.publishEvent(logSheetAddedEvent);
 		
-//		try {
-//			addFlightLogPending(logSheetAndFuelLogRequest);
-//		} catch (ApplicationException e) {
-//			e.printStackTrace();
-//			throw new ApplicationRuntimeException(e); // wrap with a ApplicationRuntimeException to cause a rollback
-//		}
-		
     	LOGGER.info(LOG_END);
 	}
 	
@@ -162,40 +155,12 @@ public class LogSheetService {
 				logSheetAndFuelLogRequest.flightTime(), logSheetAndFuelLogRequest.registration(), makeModel);
 	}
 	private String toJson(LogSheetAndFuelLogRequest logSheetAndFuelLogRequest) throws ApplicationRuntimeException {
-		//objectMapper.registerModule(new JavaTimeModule());
 		try {
 			return objectMapper.writeValueAsString(logSheetAndFuelLogRequest);
 		} catch (JsonProcessingException e) {
 			throw new ApplicationRuntimeException(e);
 		}
 	}
-
-//	private void addFlightLogPending(LogSheetAndFuelLogRequest logSheetAndFuelLogRequest) throws ApplicationException {
-//		var jwt = jwtTokenService.getJwtToken();
-//		httpService.processRequest(RequestTypeEnum.FLIGHT_LOG_PENDING_ADD, 
-//				createFlightLogPendingParameterSet(logSheetAndFuelLogRequest), jwt);
-//		
-//	}
-
-//	private Set<NamedParameter> createFlightLogPendingParameterSet(LogSheetAndFuelLogRequest logSheetAndFuelLogRequest) {
-//		var flightDate = logSheetAndFuelLogRequest.date().toLocalDate().format(AppConstants.DATE_FORMATER_YYYY_MM_DD);
-//		var acParameters = acParametersRepository.findByRegistration(logSheetAndFuelLogRequest.registration());
-//		String makeModel;
-//		if (acParameters != null) {
-//			makeModel = acParameters.getMakeModel();
-//		} else {
-//			LOGGER.warn("Could not find ac_parameters row with registration [{}]", logSheetAndFuelLogRequest.registration());
-//			makeModel = StringUtils.EMPTY;
-//		}
-//		return 
-//			Set.of(new StringParam("flightDate", flightDate),
-//					new StringParam("routeFrom", logSheetAndFuelLogRequest.from()),
-//					new StringParam("routeTo", logSheetAndFuelLogRequest.to()),
-//					new FloatParam("flightTime", logSheetAndFuelLogRequest.flightTime()),
-//					new StringParam("registration", logSheetAndFuelLogRequest.registration()),
-//					new StringParam("makeModel", makeModel));
-//	}
-	
 	
 	@Transactional
 	public void addLogSheet(LogSheetRequest logSheetRequest) {
