@@ -20,11 +20,11 @@ public abstract class AbstractRemoteApiCallBase {
 	protected final JwtTokenService jwtTokenService;
 	protected final HttpService httpService;
 	
-	@Value("${remote.api.call.retry.max.attempts:5}")
+	@Value("${remote.api.call.retry.max.attempts}")
 	protected int maxAttempts;
-	@Value("${remote.api.call.retry.delay:30000}")
+	@Value("${remote.api.call.retry.delay}")
 	protected long delay;
-	@Value("${remote.api.call.retry.multiplier:2}")
+	@Value("${remote.api.call.retry.multiplier}")
 	protected int multiplier;
 
 	protected void writeLog(RemoteApiCall remoteApiCall, int attempt, RetryStatusEnum status, Exception exception, double nextDelay) {

@@ -31,11 +31,11 @@ public class FlightLogPendingNotifier extends AbstractRemoteApiCallBase {
 	}
 
 	@Retryable(retryFor = ApplicationException.class,
-	        maxAttemptsExpression = "${remote.api.call.retry.max.attempts:15}",
+	        maxAttemptsExpression = "${remote.api.call.retry.max.attempts}",
 	        backoff =
-	        	@Backoff(delayExpression = "${remote.api.call.retry.delay:30000}",
-	        		multiplierExpression = "${remote.api.call.retry.multiplier:2}",
-	        		maxDelayExpression = "${remote.api.call.retry.max.delay:491520000}") // retry after 30 sec, 1 min, 2 min, 4 min, ... 8192 min(5.68 days)
+	        	@Backoff(delayExpression = "${remote.api.call.retry.delay}",
+	        		multiplierExpression = "${remote.api.call.retry.multiplier}",
+	        		maxDelayExpression = "${remote.api.call.retry.max.delay}") // retry after 30 sec, 1 min, 2 min, 4 min, ... 8192 min(5.68 days)
 	)
 //	listeners = {"loggingRetryListener"}
 	public void addRemotely(LogSheetAddedEvent logSheetAddedEvent) throws ApplicationException {

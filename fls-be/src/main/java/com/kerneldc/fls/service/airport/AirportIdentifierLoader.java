@@ -31,11 +31,11 @@ public class AirportIdentifierLoader extends AbstractRemoteApiCallBase {
 	}
 
 	@Retryable(retryFor = ApplicationException.class,
-	        maxAttemptsExpression = "${remote.api.call.retry.max.attempts:5}",
+	        maxAttemptsExpression = "${remote.api.call.retry.max.attempts}",
 	        backoff =
-	        	@Backoff(delayExpression = "${remote.api.call.retry.delay:30000}",
-	        		multiplierExpression = "${remote.api.call.retry.multiplier:2}",
-	        		maxDelayExpression = "${remote.api.call.retry.max.delay:480000}") // retry after 30 sec, 1 min, 2 min, 4 min
+	        	@Backoff(delayExpression = "${remote.api.call.retry.delay}",
+	        		multiplierExpression = "${remote.api.call.retry.multiplier}",
+	        		maxDelayExpression = "${remote.api.call.retry.max.delay}") // retry after 30 sec, 1 min, 2 min, 4 min, ... 8192 min(5.68 days)
 	)
 //	listeners = {"loggingRetryListener"}
 	public void loadRemotely(LoadIdentifiersEvent loadIdentifiersEvent) throws ApplicationException {
