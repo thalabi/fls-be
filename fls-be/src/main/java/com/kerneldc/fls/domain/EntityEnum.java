@@ -15,7 +15,7 @@ import com.kerneldc.fls.domain.remoteapicalllog.RemoteApiCallLog;
 import com.kerneldc.fls.domain.tsmoh.TsmohV;
 import com.kerneldc.fls.domain.tsnv.TsnV;
 
-public enum FlsEntityEnum implements IEntityEnum {
+public enum EntityEnum implements IEntityEnum {
 	AC_PARAMETERS(AcParameters.class, false, new String[] {}),
 	FUEL_LOG(FuelLog.class, false, new String[] {}),
 	FUEL_PRICE(FuelPrice.class, false, new String[] {}),
@@ -34,11 +34,11 @@ public enum FlsEntityEnum implements IEntityEnum {
 	boolean immutable;
 	String[] writeColumnOrder;
 
-	FlsEntityEnum(Class<? extends AbstractEntity> entity, boolean immutable) {
+	EntityEnum(Class<? extends AbstractEntity> entity, boolean immutable) {
 		this.entity = entity;
 		this.immutable = immutable;
 	}
-	FlsEntityEnum(Class<? extends AbstractEntity> entity, boolean immutable, String[] writeColumnOrder) {
+	EntityEnum(Class<? extends AbstractEntity> entity, boolean immutable, String[] writeColumnOrder) {
 		this.entity = entity;
 		this.immutable = immutable;
 		// tag SOURCECSVLINENUMBER to the end of the writeColumnOrder

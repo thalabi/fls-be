@@ -1,6 +1,6 @@
 package com.kerneldc.fls.repository;
 
-import com.kerneldc.fls.domain.FlsEntityEnum;
+import com.kerneldc.fls.domain.EntityEnum;
 import com.kerneldc.fls.domain.IEntityEnum;
 import com.kerneldc.fls.domain.remoteapicalllog.RemoteApiCallLog;
 
@@ -8,7 +8,7 @@ public interface RemoteApiCallLogRepository extends BaseTableRepository<RemoteAp
 
 	@Override
 	default IEntityEnum canHandle() {
-		return FlsEntityEnum.REMOTE_API_CALL_LOG;
+		return EntityEnum.REMOTE_API_CALL_LOG;
 	}
 
 }

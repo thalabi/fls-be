@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
-import com.kerneldc.fls.domain.FlsEntityEnum;
+import com.kerneldc.fls.domain.EntityEnum;
 import com.kerneldc.fls.domain.IEntityEnum;
 import com.kerneldc.fls.domain.fuellog.FuelLog;
 
@@ -21,7 +21,7 @@ public interface FuelLogRepository extends BaseTableRepository<FuelLog, Long>{
 	
 	@Override
 	default IEntityEnum canHandle() {
-		return FlsEntityEnum.FUEL_LOG;
+		return EntityEnum.FUEL_LOG;
 	}
 
 

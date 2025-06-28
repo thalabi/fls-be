@@ -1,6 +1,6 @@
 package com.kerneldc.fls.repository;
 
-import com.kerneldc.fls.domain.FlsEntityEnum;
+import com.kerneldc.fls.domain.EntityEnum;
 import com.kerneldc.fls.domain.IEntityEnum;
 import com.kerneldc.fls.domain.journeylog.JourneyLog;
 
@@ -8,7 +8,7 @@ public interface JourneyLogRepository extends BaseTableRepository<JourneyLog, Lo
 	
 	@Override
 	default IEntityEnum canHandle() {
-		return FlsEntityEnum.JOURNEY_LOG;
+		return EntityEnum.JOURNEY_LOG;
 	}
 
 }

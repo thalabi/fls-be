@@ -1,6 +1,6 @@
 package com.kerneldc.fls.repository;
 
-import com.kerneldc.fls.domain.FlsEntityEnum;
+import com.kerneldc.fls.domain.EntityEnum;
 import com.kerneldc.fls.domain.IEntityEnum;
 import com.kerneldc.fls.domain.enginelogv.EngineLogV;
 
@@ -10,7 +10,7 @@ public interface EngineLogVRepository extends BaseViewRepository<EngineLogV, Lon
 	
 	@Override
 	default IEntityEnum canHandle() {
-		return FlsEntityEnum.ENGINE_LOG_V;
+		return EntityEnum.ENGINE_LOG_V;
 	}
 
 }

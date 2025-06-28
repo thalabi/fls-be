@@ -1,6 +1,6 @@
 package com.kerneldc.fls.repository;
 
-import com.kerneldc.fls.domain.FlsEntityEnum;
+import com.kerneldc.fls.domain.EntityEnum;
 import com.kerneldc.fls.domain.IEntityEnum;
 import com.kerneldc.fls.domain.remoteapicall.RemoteApiCall;
 
@@ -8,7 +8,7 @@ public interface RemoteApiCallRepository extends BaseTableRepository<RemoteApiCa
 
 	@Override
 	default IEntityEnum canHandle() {
-		return FlsEntityEnum.REMOTE_API_CALL_DETAIL;
+		return EntityEnum.REMOTE_API_CALL_DETAIL;
 	}
 
 }
