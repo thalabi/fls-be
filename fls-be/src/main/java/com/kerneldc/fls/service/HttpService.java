@@ -135,7 +135,7 @@ public class HttpService {
 		}
 	}
 
-	public NamedParameterSet loadIdentifiersFromExternalApi(String jwt) throws ApplicationException  {
+	private NamedParameterSet loadIdentifiersFromExternalApi(String jwt) throws ApplicationException  {
 		
 		if (urlLoggingEnabled) LOGGER.info("Hitting url: [{}]", airportServiceApiUrl);
 
