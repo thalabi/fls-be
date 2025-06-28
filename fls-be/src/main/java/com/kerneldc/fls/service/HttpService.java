@@ -47,7 +47,7 @@ public class HttpService {
 	public HttpService(@Value("${httpservice.url.logging.enabled:false}") boolean urlLoggingEnabled,
 			@Value("${flightlog.oauth2.server.url}") String flightLogOauth2ServerUrl,
 			@Value("${airport.service.url}") String airportServiceApiUrl,
-			@Value("${flight.log.pending.service.url}") String flightLogPendingServiceApiUrl,
+			@Value("${flightlog.pending.service.url}") String flightLogPendingServiceApiUrl,
 			ObjectMapper objectMapper) {
 		this.urlLoggingEnabled = urlLoggingEnabled;
 		this.flightLogOauth2ServerUrl = flightLogOauth2ServerUrl;
