@@ -28,8 +28,8 @@ public class EmailService {
 	@Value("${application.email.airportIdentifierTaskNotificationTo}")
 	private String airportIdentifierTaskNotificationTo;
 	
-	private static final String LOAD_AIRPORT_IDENTIFIERS_FAILURE_SUBJECT = "Load Airport Identifiers Failure";
-	private static final String LOAD_AIRPORT_IDENTIFIERS_FAILURE_TEMPLATE = "loadAirportIdentifiersFailure.ftlh";
+//	private static final String LOAD_AIRPORT_IDENTIFIERS_FAILURE_SUBJECT = "Load Airport Identifiers Failure";
+//	private static final String LOAD_AIRPORT_IDENTIFIERS_FAILURE_TEMPLATE = "loadAirportIdentifiersFailure.ftlh";
 	private static final String REFRESH_AIRPORT_IDENTIFIERS_FAILURE_SUBJECT = "Refresh Airport Identifiers Failure";
 	private static final String REFRESH_AIRPORT_IDENTIFIERS_FAILURE_TEMPLATE = "refreshAirportIdentifiersFailure.ftlh";
 	private JavaMailSender javaMailSender;
@@ -40,27 +40,27 @@ public class EmailService {
 		this.freeMarkerConfiguration = freeMarkerConfiguration;
 	}
 
-	public void sendLoadIdentifiersFailureEmail(ApplicationException loadingFromExternalApiException) {
-		var mimeMessage = javaMailSender.createMimeMessage();
-		var mimeMessageHelper = new MimeMessageHelper(mimeMessage, StandardCharsets.UTF_8.name());
-		try {
-			mimeMessageHelper.setFrom(airportIdentifierTaskNotificationFrom);
-			mimeMessageHelper.setTo(InternetAddress.parse(airportIdentifierTaskNotificationTo));
-			mimeMessageHelper.setSubject(LOAD_AIRPORT_IDENTIFIERS_FAILURE_SUBJECT);
-			mimeMessageHelper.setText(processLoadIdentifiersFailureTemplate(loadingFromExternalApiException), true);
-			javaMailSender.send(mimeMessage);
-			LOGGER.info("Sent load identifiers failure email to: {}", airportIdentifierTaskNotificationTo);
-		} catch (MessagingException | IOException | TemplateException e) {
-			var message = "Exception while sending failure email."; 
-			LOGGER.error(message, e);
-			LOGGER.info("Failed to send load identifiers failure email to: {}", airportIdentifierTaskNotificationTo);
-		}
-	}
-	private String processLoadIdentifiersFailureTemplate(ApplicationException loadingFromExternalApiException) throws IOException, TemplateException {
-		Map<String, Object> templateModelMap = new HashMap<>();
-		templateModelMap.put("loadingFromExternalApiException", loadingFromExternalApiException);
-		return FreeMarkerTemplateUtils.processTemplateIntoString(freeMarkerConfiguration.getTemplate(LOAD_AIRPORT_IDENTIFIERS_FAILURE_TEMPLATE), templateModelMap);
-	}
+//	public void sendLoadIdentifiersFailureEmail(ApplicationException loadingFromExternalApiException) {
+//		var mimeMessage = javaMailSender.createMimeMessage();
+//		var mimeMessageHelper = new MimeMessageHelper(mimeMessage, StandardCharsets.UTF_8.name());
+//		try {
+//			mimeMessageHelper.setFrom(airportIdentifierTaskNotificationFrom);
+//			mimeMessageHelper.setTo(InternetAddress.parse(airportIdentifierTaskNotificationTo));
+//			mimeMessageHelper.setSubject(LOAD_AIRPORT_IDENTIFIERS_FAILURE_SUBJECT);
+//			mimeMessageHelper.setText(processLoadIdentifiersFailureTemplate(loadingFromExternalApiException), true);
+//			javaMailSender.send(mimeMessage);
+//			LOGGER.info("Sent load identifiers failure email to: {}", airportIdentifierTaskNotificationTo);
+//		} catch (MessagingException | IOException | TemplateException e) {
+//			var message = "Exception while sending failure email."; 
+//			LOGGER.error(message, e);
+//			LOGGER.info("Failed to send load identifiers failure email to: {}", airportIdentifierTaskNotificationTo);
+//		}
+//	}
+//	private String processLoadIdentifiersFailureTemplate(ApplicationException loadingFromExternalApiException) throws IOException, TemplateException {
+//		Map<String, Object> templateModelMap = new HashMap<>();
+//		templateModelMap.put("loadingFromExternalApiException", loadingFromExternalApiException);
+//		return FreeMarkerTemplateUtils.processTemplateIntoString(freeMarkerConfiguration.getTemplate(LOAD_AIRPORT_IDENTIFIERS_FAILURE_TEMPLATE), templateModelMap);
+//	}
 	
 	public void sendRefreshIdentifiersFailureEmail(ApplicationException loadingFromExternalApiException) {
 		var mimeMessage = javaMailSender.createMimeMessage();

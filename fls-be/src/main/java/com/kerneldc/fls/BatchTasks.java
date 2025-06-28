@@ -26,16 +26,16 @@ public class BatchTasks {
 		if (testMode()) {
 			return;
 		}
-		try {
+//		try {
 			airportService.loadIdentifiersFromExternalApi();
-		} catch (ApplicationException e) {
-			var message = "Failed to load airport identifiers from external api";
-			e.addMessage(message);
-			e.printStackTrace();
-			LOGGER.warn(message);
-			LOGGER.info("Sending failure email");
-			emailService.sendLoadIdentifiersFailureEmail(e);
-		}
+//		} catch (ApplicationException e) {
+//			var message = "Failed to load airport identifiers from external api";
+//			e.addMessage(message);
+//			e.printStackTrace();
+//			LOGGER.warn(message);
+//			LOGGER.info("Sending failure email");
+//			emailService.sendLoadIdentifiersFailureEmail(e);
+//		}
     }
 	
 	@Scheduled(cron = "0 30 7 * * SUN") // Every Sun at 7:30 AM (after Jenkins job that enriches airport table)
