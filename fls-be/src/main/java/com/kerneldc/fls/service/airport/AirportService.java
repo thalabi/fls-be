@@ -32,7 +32,7 @@ public class AirportService {
 	@Setter
 	private Set<String> identifierSet = new HashSet<>();
 	
-	public void loadIdentifiersFromExternalApi() throws ApplicationException  {
+	public void loadIdentifiersFromExternalApi() {
 
 		// publish event to trigger remote api call
 		var now = OffsetDateTime.now();
