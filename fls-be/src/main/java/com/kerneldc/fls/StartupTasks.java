@@ -7,9 +7,11 @@ import org.springframework.stereotype.Component;
 import com.kerneldc.fls.service.airport.AirportService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class StartupTasks {
 
 	private final AirportService airportService;
@@ -20,7 +22,8 @@ public class StartupTasks {
 		if (testMode()) {
 			return;
 		}
-			airportService.loadIdentifiersFromExternalApi();
+		LOGGER.info("Loading airport identifiers");
+		airportService.loadIdentifiersFromExternalApi();
     }
 
 	private boolean testMode() {     

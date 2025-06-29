@@ -52,6 +52,7 @@ public class AirportIdentifierLoader extends AbstractRemoteApiCallBase {
 			@SuppressWarnings("unchecked")
 			Set<String> identifierSet = returnParams.get("identifierSet", Set.class);
 			airportService.setIdentifierSet(identifierSet);
+			LOGGER.info("Loaded [{}] airport identifiers", identifierSet.size());
 			writeLog(remoteApiCall, retryCount + 1,
 						(retryCount == 0 ? RetryStatusEnum.SUCCESS : RetryStatusEnum.RETRY_SUCCESS), null, 0);
 		} catch (ApplicationException e) {
