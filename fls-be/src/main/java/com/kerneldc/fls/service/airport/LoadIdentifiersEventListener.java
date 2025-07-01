@@ -16,7 +16,7 @@ public class LoadIdentifiersEventListener {
 
 	@Async
 	@EventListener
-	public void onLogSheetAdded(LoadIdentifiersEvent loadIdentifiersEvent) throws ApplicationException {
+	public void loadEventListener(LoadIdentifiersEvent loadIdentifiersEvent) throws ApplicationException {
 		airportIdentifierLoader.loadRemotely(loadIdentifiersEvent);
 	}
 }
