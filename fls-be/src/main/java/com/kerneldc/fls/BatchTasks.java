@@ -4,8 +4,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import com.kerneldc.fls.exeption.ApplicationException;
+import com.kerneldc.fls.service.EmailService;
 import com.kerneldc.fls.service.airport.AirportService;
-import com.kerneldc.fls.util.EmailService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

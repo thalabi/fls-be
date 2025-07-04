@@ -12,9 +12,9 @@ import com.kerneldc.fls.domain.remoteapicalllog.RemoteApiCallLog.RetryStatusEnum
 import com.kerneldc.fls.exeption.ApplicationException;
 import com.kerneldc.fls.repository.RemoteApiCallLogRepository;
 import com.kerneldc.fls.service.AbstractRemoteApiCallBase;
-import com.kerneldc.fls.service.HttpService;
-import com.kerneldc.fls.service.HttpService.RequestTypeEnum;
 import com.kerneldc.fls.service.JwtTokenService;
+import com.kerneldc.fls.service.http.HttpRequestTypeEnum;
+import com.kerneldc.fls.service.http.HttpService;
 import com.kerneldc.fls.util.namedparameter.FloatParam;
 import com.kerneldc.fls.util.namedparameter.NamedParameter;
 import com.kerneldc.fls.util.namedparameter.StringParam;
@@ -57,7 +57,7 @@ public class FlightLogPendingNotifier extends AbstractRemoteApiCallBase {
 							new StringParam("registration", flightLogPendingVo.registration()),
 							new StringParam("makeModel", flightLogPendingVo.makeModel()));
 	
-				httpService.processRequest(RequestTypeEnum.FLIGHT_LOG_PENDING_ADD, namedParameterSet, jwt);
+				httpService.processRequest(HttpRequestTypeEnum.FLIGHT_LOG_PENDING_ADD, namedParameterSet, jwt);
 				writeLog(remoteApiCall, retryCount + 1,
 						(retryCount == 0 ? RetryStatusEnum.SUCCESS : RetryStatusEnum.RETRY_SUCCESS), null, 0);
 			} catch (ApplicationException e) {

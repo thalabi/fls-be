@@ -8,7 +8,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.kerneldc.fls.exeption.ApplicationException;
-import com.kerneldc.fls.service.HttpService.RequestTypeEnum;
+import com.kerneldc.fls.service.http.HttpRequestTypeEnum;
+import com.kerneldc.fls.service.http.HttpService;
 import com.kerneldc.fls.util.namedparameter.StringParam;
 
 import lombok.extern.slf4j.Slf4j;
@@ -46,14 +47,14 @@ public class JwtTokenService {
 
 	private void fetchJwtAccessToken() throws ApplicationException {
 		var jwtTokenRequestTime = LocalDateTime.now();
-		var returnParams = httpService.processRequest(RequestTypeEnum.FLIGHT_LOG_JWT_TOKEN,
+		var returnParams = httpService.processRequest(HttpRequestTypeEnum.FLIGHT_LOG_JWT_TOKEN,
 				Set.of(new StringParam("oauth2clientId", flightLogOauth2ClientId),
 						new StringParam("oauth2ClientSecret", flightLogOauth2ClientSecret)));
 		jwt = returnParams.get("jwt", String.class);
 		var expiresIn = returnParams.get("expiresIn", Long.class);
-		LOGGER.info("JWT token [{}]", jwt);
+		LOGGER.debug("JWT token [{}]", jwt);
 		jwtExpirationTime = jwtTokenRequestTime.plusSeconds(expiresIn);
-		LOGGER.info("JWT token expires in [{}] seconds, at [{}]", expiresIn, jwtExpirationTime);
+		LOGGER.info("JWT token received and expires in [{}] seconds, at [{}]", expiresIn, jwtExpirationTime);
 	}
 
 }

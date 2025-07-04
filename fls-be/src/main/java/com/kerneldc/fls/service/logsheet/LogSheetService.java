@@ -31,7 +31,7 @@ import com.kerneldc.fls.repository.FuelLogRepository;
 import com.kerneldc.fls.repository.LogSheetRepository;
 import com.kerneldc.fls.repository.RemoteApiCallLogRepository;
 import com.kerneldc.fls.repository.RemoteApiCallRepository;
-import com.kerneldc.fls.service.HttpService.RequestTypeEnum;
+import com.kerneldc.fls.service.http.HttpRequestTypeEnum;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -124,7 +124,7 @@ public class LogSheetService {
 		var flightLogPendingVo = toFlightLogPendingVo(logSheetAndFuelLogRequest);
 		
 		var remoteApiCall = new RemoteApiCall();
-		remoteApiCall.setRequest(RequestTypeEnum.FLIGHT_LOG_PENDING_ADD);
+		remoteApiCall.setRequest(HttpRequestTypeEnum.FLIGHT_LOG_PENDING_ADD);
 		remoteApiCall.setParameters(toJson(logSheetAndFuelLogRequest));
 		remoteApiCall.setTimestamp(now);
 		remoteApiCallRepository.save(remoteApiCall);

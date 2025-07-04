@@ -10,6 +10,7 @@ import com.kerneldc.fls.domain.remoteapicall.RemoteApiCall;
 import com.kerneldc.fls.domain.remoteapicalllog.RemoteApiCallLog;
 import com.kerneldc.fls.domain.remoteapicalllog.RemoteApiCallLog.RetryStatusEnum;
 import com.kerneldc.fls.repository.RemoteApiCallLogRepository;
+import com.kerneldc.fls.service.http.HttpService;
 
 import lombok.RequiredArgsConstructor;
 

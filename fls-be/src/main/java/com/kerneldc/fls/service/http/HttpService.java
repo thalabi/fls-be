@@ -1,4 +1,4 @@
-package com.kerneldc.fls.service;
+package com.kerneldc.fls.service.http;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -38,12 +38,6 @@ public class HttpService {
 
 	private final ObjectMapper objectMapper;
 
-	public enum RequestTypeEnum {
-		FLIGHT_LOG_JWT_TOKEN,
-		AIRPORT_IDENTIFIERS,
-		FLIGHT_LOG_PENDING_ADD;
-	}
-	
 	public HttpService(@Value("${httpservice.url.logging.enabled:false}") boolean urlLoggingEnabled,
 			@Value("${flightlog.oauth2.server.url}") String flightLogOauth2ServerUrl,
 			@Value("${airport.service.url}") String airportServiceApiUrl,
@@ -56,16 +50,16 @@ public class HttpService {
 		this.objectMapper = objectMapper;
 	}
 
-	public NamedParameterSet processRequest(RequestTypeEnum requestTypeEnum, Set<NamedParameter> data) throws ApplicationException {
-		return processRequest(requestTypeEnum, data, StringUtils.EMPTY);
+	public NamedParameterSet processRequest(HttpRequestTypeEnum httpRequestTypeEnum, Set<NamedParameter> data) throws ApplicationException {
+		return processRequest(httpRequestTypeEnum, data, StringUtils.EMPTY);
 	}
-	public NamedParameterSet processRequest(RequestTypeEnum requestTypeEnum, String jwt) throws ApplicationException {
-		return processRequest(requestTypeEnum, Set.of(), jwt);
+	public NamedParameterSet processRequest(HttpRequestTypeEnum httpRequestTypeEnum, String jwt) throws ApplicationException {
+		return processRequest(httpRequestTypeEnum, Set.of(), jwt);
 	}
 	
-	public NamedParameterSet processRequest(RequestTypeEnum requestTypeEnum, Set<NamedParameter> data, String jwt) throws ApplicationException {
+	public NamedParameterSet processRequest(HttpRequestTypeEnum httpRequestTypeEnum, Set<NamedParameter> data, String jwt) throws ApplicationException {
 		var parameterSet = new NamedParameterSet(data);
-		switch (requestTypeEnum) {
+		switch (httpRequestTypeEnum) {
 			case FLIGHT_LOG_JWT_TOKEN -> {
 				return fetchJwtAccessToken(parameterSet);
 			}

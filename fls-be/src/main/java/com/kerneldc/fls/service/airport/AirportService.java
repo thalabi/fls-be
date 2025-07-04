@@ -14,7 +14,7 @@ import com.kerneldc.fls.domain.remoteapicalllog.RemoteApiCallLog.RetryStatusEnum
 import com.kerneldc.fls.exeption.ApplicationException;
 import com.kerneldc.fls.repository.RemoteApiCallLogRepository;
 import com.kerneldc.fls.repository.RemoteApiCallRepository;
-import com.kerneldc.fls.service.HttpService.RequestTypeEnum;
+import com.kerneldc.fls.service.http.HttpRequestTypeEnum;
 
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -38,7 +38,7 @@ public class AirportService {
 		var now = OffsetDateTime.now();
 		
 		var remoteApiCall = new RemoteApiCall();
-		remoteApiCall.setRequest(RequestTypeEnum.AIRPORT_IDENTIFIERS);
+		remoteApiCall.setRequest(HttpRequestTypeEnum.AIRPORT_IDENTIFIERS);
 		remoteApiCall.setTimestamp(now);
 		remoteApiCallRepository.save(remoteApiCall);
 		

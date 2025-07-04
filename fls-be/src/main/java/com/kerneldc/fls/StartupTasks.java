@@ -18,21 +18,11 @@ public class StartupTasks {
 
 	@EventListener(ApplicationReadyEvent.class)
     public void loadIdentifiers() {
-		// do not run if in test mode
-		if (testMode()) {
-			return;
-		}
-		LOGGER.info("Loading airport identifiers");
+		
+		LOGGER.info("Running startup tasks ...");
+		
 		airportService.loadIdentifiersFromExternalApi();
+
+		LOGGER.info("Startup tasks completed");
     }
-
-	private boolean testMode() {     
-	    for (StackTraceElement ste : Thread.currentThread().getStackTrace()) {
-	        if (ste.getClassName().contains("org.springframework.test.context")) {
-	            return true;
-	        }
-	    }       
-	    return false;
-	}
-
 }
