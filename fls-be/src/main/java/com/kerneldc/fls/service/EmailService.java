@@ -18,12 +18,16 @@ import freemarker.template.Configuration;
 import freemarker.template.TemplateException;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.InternetAddress;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
+@RequiredArgsConstructor
 @Slf4j
 public class EmailService {
 
+	private final JavaMailSender javaMailSender;
+	private final Configuration freeMarkerConfiguration;
 	@Value("${application.email.emailNotificationFrom}")
 	private String emailNotificationFrom;
 	@Value("${application.email.emailNotificationTo}")
@@ -35,14 +39,7 @@ public class EmailService {
 	private static final String REFRESH_AIRPORT_IDENTIFIERS_FAILURE_TEMPLATE = "refreshAirportIdentifiersFailure.ftlh";
 	private static final String REMOTE_API_FAILURE_TEMPLATE = "remoteApiFailure.ftlh";
 	private static final String REMOTE_API_SUCCESS_AFTER_FAILURE_TEMPLATE = "remoteApiSuccessAfterRetry.ftlh";
-	private JavaMailSender javaMailSender;
-	private Configuration freeMarkerConfiguration;
-	
-	public EmailService(JavaMailSender emailSender, Configuration freeMarkerConfiguration) {
-		this.javaMailSender = emailSender;
-		this.freeMarkerConfiguration = freeMarkerConfiguration;
-	}
-	
+		
 	public void sendRefreshIdentifiersFailureEmail(ApplicationException loadingFromExternalApiException) {
 		var mimeMessage = javaMailSender.createMimeMessage();
 		var mimeMessageHelper = new MimeMessageHelper(mimeMessage, StandardCharsets.UTF_8.name());

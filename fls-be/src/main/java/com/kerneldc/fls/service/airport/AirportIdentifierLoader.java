@@ -27,7 +27,9 @@ public class AirportIdentifierLoader extends AbstractRemoteApiCallBase {
 	
 	public AirportIdentifierLoader(RemoteApiCallLogRepository remoteApiCallLogRepository,
 		JwtTokenService jwtTokenService, HttpService httpService, AirportService airportService, EmailService emailService) {
+		
 		super(remoteApiCallLogRepository, jwtTokenService, httpService, emailService);
+		
 		this.airportService = airportService;
 	}
 

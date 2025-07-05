@@ -28,6 +28,7 @@ public class FlightLogPendingNotifier extends AbstractRemoteApiCallBase {
 
 	public FlightLogPendingNotifier(RemoteApiCallLogRepository remoteApiCallLogRepository,
 			JwtTokenService jwtTokenService, HttpService httpService, EmailService emailService) {
+		
 		super(remoteApiCallLogRepository, jwtTokenService, httpService, emailService);
 	}
 
