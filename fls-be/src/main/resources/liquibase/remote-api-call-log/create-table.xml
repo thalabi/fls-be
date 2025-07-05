@@ -26,7 +26,7 @@
             <column name="status" type="VARCHAR(32)">
 				<constraints nullable="false" />
             </column>
-			<column name="message" type="VARCHAR(4000)"/>
+			<column name="message" type="VARCHAR(65535)"/>
 			<column name="stack_trace" type="VARCHAR(65535)"/>
             <column name="timestamp" type="TIMESTAMP WITH TIME ZONE">
 				<constraints nullable="false" />

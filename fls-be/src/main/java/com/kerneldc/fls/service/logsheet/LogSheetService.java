@@ -142,7 +142,7 @@ public class LogSheetService {
 	}
 	
 	private FlightLogPendingVo toFlightLogPendingVo(LogSheetAndFuelLogRequest logSheetAndFuelLogRequest) {
-		var flightDate = logSheetAndFuelLogRequest.date().toLocalDate().format(AppConstants.DATE_FORMATER_YYYY_MM_DD);
+		var flightDate = logSheetAndFuelLogRequest.date().toLocalDate().format(AppConstants.DATE_FORMATER_YYYY_MM_DD) + "T00:00:00";
 		var acParameters = acParametersRepository.findByRegistration(logSheetAndFuelLogRequest.registration());
 		String makeModel;
 		if (acParameters != null) {
