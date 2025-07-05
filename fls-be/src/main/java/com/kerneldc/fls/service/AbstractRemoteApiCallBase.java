@@ -20,6 +20,8 @@ public abstract class AbstractRemoteApiCallBase {
 	protected final RemoteApiCallLogRepository remoteApiCallLogRepository;
 	protected final JwtTokenService jwtTokenService;
 	protected final HttpService httpService;
+	protected final EmailService emailService;
+
 	
 	@Value("${remote.api.call.retry.max.attempts}")
 	protected int maxAttempts;
@@ -27,7 +29,7 @@ public abstract class AbstractRemoteApiCallBase {
 	protected long delay;
 	@Value("${remote.api.call.retry.multiplier}")
 	protected int multiplier;
-
+	
 	protected void writeLog(RemoteApiCall remoteApiCall, int attempt, RetryStatusEnum status, Exception exception, double nextDelay) {
 		var now = OffsetDateTime.now();
 		var remoteApiCallLog = new RemoteApiCallLog();

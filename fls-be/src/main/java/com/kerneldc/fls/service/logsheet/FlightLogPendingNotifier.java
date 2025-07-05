@@ -12,6 +12,7 @@ import com.kerneldc.fls.domain.remoteapicalllog.RemoteApiCallLog.RetryStatusEnum
 import com.kerneldc.fls.exeption.ApplicationException;
 import com.kerneldc.fls.repository.RemoteApiCallLogRepository;
 import com.kerneldc.fls.service.AbstractRemoteApiCallBase;
+import com.kerneldc.fls.service.EmailService;
 import com.kerneldc.fls.service.JwtTokenService;
 import com.kerneldc.fls.service.http.HttpRequestTypeEnum;
 import com.kerneldc.fls.service.http.HttpService;
@@ -26,8 +27,8 @@ import lombok.extern.slf4j.Slf4j;
 public class FlightLogPendingNotifier extends AbstractRemoteApiCallBase {
 
 	public FlightLogPendingNotifier(RemoteApiCallLogRepository remoteApiCallLogRepository,
-			JwtTokenService jwtTokenService, HttpService httpService) {
-		super(remoteApiCallLogRepository, jwtTokenService, httpService);
+			JwtTokenService jwtTokenService, HttpService httpService, EmailService emailService) {
+		super(remoteApiCallLogRepository, jwtTokenService, httpService, emailService);
 	}
 
 	@Retryable(retryFor = ApplicationException.class,
@@ -48,7 +49,9 @@ public class FlightLogPendingNotifier extends AbstractRemoteApiCallBase {
 
 		var flightLogPendingVo = logSheetAddedEvent.getFlightLogPendingVo();
 		try {
+			
 			var jwt = jwtTokenService.getJwtToken();
+			
 			Set<NamedParameter> namedParameterSet = 
 					Set.of(new StringParam("flightDate", flightLogPendingVo.flightDate()),
 							new StringParam("routeFrom", flightLogPendingVo.routeFrom()),
@@ -60,10 +63,20 @@ public class FlightLogPendingNotifier extends AbstractRemoteApiCallBase {
 				httpService.processRequest(HttpRequestTypeEnum.FLIGHT_LOG_PENDING_ADD, namedParameterSet, jwt);
 				writeLog(remoteApiCall, retryCount + 1,
 						(retryCount == 0 ? RetryStatusEnum.SUCCESS : RetryStatusEnum.RETRY_SUCCESS), null, 0);
-			} catch (ApplicationException e) {
-				writeLog(remoteApiCall, retryCount + 1, RetryStatusEnum.RETRY, e, nextDelay);
-				LOGGER.error(e.getMessage());
-				throw e;
+				// send success email if call succeeded after retrying
+				if (retryCount != 0) {
+					LOGGER.info("Sending success after retrying email");
+					emailService.sendRemoteApiSuccessAfterRetryEmail(HttpRequestTypeEnum.FLIGHT_LOG_PENDING_ADD, retryCount);
+				}
+			} catch (ApplicationException applicationException) {
+				writeLog(remoteApiCall, retryCount + 1, RetryStatusEnum.RETRY, applicationException, nextDelay);
+				LOGGER.error(applicationException.getMessage());
+				// send failure email on failure
+				if (retryCount == 0) { // first time call fails
+					LOGGER.info("Sending failure email");
+					emailService.sendRemoteApiFailureEmail(HttpRequestTypeEnum.FLIGHT_LOG_PENDING_ADD, applicationException);
+				}
+				throw applicationException;
 			}
 	}
 	

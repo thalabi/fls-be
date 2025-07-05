@@ -24,14 +24,11 @@ import lombok.extern.slf4j.Slf4j;
 public class AirportIdentifierLoader extends AbstractRemoteApiCallBase {
 
 	private final AirportService airportService;
-	private final EmailService emailService;
-
 	
 	public AirportIdentifierLoader(RemoteApiCallLogRepository remoteApiCallLogRepository,
 		JwtTokenService jwtTokenService, HttpService httpService, AirportService airportService, EmailService emailService) {
-		super(remoteApiCallLogRepository, jwtTokenService, httpService);
+		super(remoteApiCallLogRepository, jwtTokenService, httpService, emailService);
 		this.airportService = airportService;
-		this.emailService = emailService;
 	}
 
 	@Retryable(retryFor = ApplicationException.class,
