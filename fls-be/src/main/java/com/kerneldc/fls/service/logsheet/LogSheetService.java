@@ -5,6 +5,7 @@ import static com.kerneldc.fls.controller.LogSheetController.LOG_SHEET_REQUEST_F
 
 import java.io.Serializable;
 import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.ApplicationEventPublisher;
@@ -12,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kerneldc.fls.AppConstants;
 import com.kerneldc.fls.controller.LogSheetController.LogSheetAndFuelLogRequest;
 import com.kerneldc.fls.controller.LogSheetController.LogSheetRequest;
 import com.kerneldc.fls.domain.EnginePositionEnum;
@@ -142,7 +142,7 @@ public class LogSheetService {
 	}
 	
 	private FlightLogPendingVo toFlightLogPendingVo(LogSheetAndFuelLogRequest logSheetAndFuelLogRequest) {
-		var flightDate = logSheetAndFuelLogRequest.date().toLocalDate().format(AppConstants.DATE_FORMATER_YYYY_MM_DD) + "T00:00:00";
+		var flightDate = logSheetAndFuelLogRequest.date().format(DateTimeFormatter.ISO_ZONED_DATE_TIME);
 		var acParameters = acParametersRepository.findByRegistration(logSheetAndFuelLogRequest.registration());
 		String makeModel;
 		if (acParameters != null) {
