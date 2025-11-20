@@ -48,7 +48,7 @@ public class EntitySpecification<T> implements Specification<T> {
 			throw new IllegalArgumentException(String.format("Invalid operator [%s]", name));
 		}
 	}
-	record Filter(String field, QueryOperatorEnum operator, String value) {};
+	record Filter(String field, QueryOperatorEnum operator, String value) {}
 	private transient List<Filter> filterList = new ArrayList<>();
 	private transient EntityType<? extends AbstractEntity> entityMetamodel;
 
@@ -71,9 +71,9 @@ public class EntitySpecification<T> implements Specification<T> {
 
 	private Specification<T> buildSpecificationFromFilters() {
 		if (filterList.isEmpty()) {
-			return Specification.where(null);
+			return null;
 		}
-		Specification<T> specification = Specification.where(createSpecification(filterList.get(0)));
+		Specification<T> specification = createSpecification(filterList.get(0));
 		for (int i = 1; i < filterList.size(); i++) {
 			specification = specification.and(createSpecification(filterList.get(i)));
 		}
