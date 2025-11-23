@@ -15,7 +15,7 @@ import com.kerneldc.fls.domain.AbstractEntityModel;
 import com.kerneldc.fls.domain.EntityEnumUtilities;
 import com.kerneldc.fls.domain.IEntityEnum;
 import com.kerneldc.fls.repository.EntityRepositoryFactory;
-import com.kerneldc.fls.search.EntitySpecification;
+import com.kerneldc.searchspecification.EntitySpecification;
 
 import jakarta.persistence.EntityManager;
 import jakarta.validation.constraints.NotBlank;
@@ -48,6 +48,7 @@ public class GenericEntityController {
     	
     	// Retrieve entity metamodel with proper typing
     	var entityMetamodel = entityManager.getMetamodel().entity(entityEnum.getEntity());
+
     	
     	// Create a typed specification
     	var entitySpecification = new EntitySpecification<AbstractEntity>(entityMetamodel, search);

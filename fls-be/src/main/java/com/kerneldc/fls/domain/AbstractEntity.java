@@ -8,11 +8,13 @@ import java.util.function.Function;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import com.kerneldc.searchspecification.JpaEntity;
+
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public abstract class AbstractEntity {
+public abstract class AbstractEntity implements JpaEntity {
 	
 	protected static final String OFFSET_DATE_TIME_FORMAT = "uuuu-MM-dd HH:mm:ss.SSSZ";
 	protected static final String LOCAL_DATE_TIME_FORMAT = "uuuu-MM-dd HH:mm:ss.SSS";
