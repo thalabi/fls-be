@@ -8,7 +8,7 @@ import java.util.function.Function;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import com.kerneldc.searchspecification.JpaEntity;
+import com.kerneldc.searchspecification.domain.JpaEntity;
 
 import lombok.Getter;
 import lombok.Setter;
