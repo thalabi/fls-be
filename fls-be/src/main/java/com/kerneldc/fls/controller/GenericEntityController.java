@@ -1,6 +1,7 @@
 package com.kerneldc.fls.controller;
 
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
@@ -17,7 +18,6 @@ import com.kerneldc.fls.domain.IEntityEnum;
 import com.kerneldc.fls.repository.EntityRepositoryFactory;
 import com.kerneldc.searchspecification.EntitySpecification;
 
-import jakarta.persistence.EntityManager;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
@@ -31,9 +31,8 @@ public class GenericEntityController {
 
 	private final EntityRepositoryFactory<AbstractEntity, Long> entityRepositoryFactory;
 	private final EntityRepresentationModelAssemblerAdapter entityRepresentationModelAssemblerAdapter;
-	private final EntityManager entityManager;
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@GetMapping("/findAll")
 	public ResponseEntity<PagedModel<AbstractEntityModel>> findAll(
 			@RequestParam @NotBlank String tableName, @RequestParam String search,
@@ -46,15 +45,11 @@ public class GenericEntityController {
     	// Retrieve the repository with proper typing
     	var entityRepository = entityRepositoryFactory.getRepository(entityEnum);
     	
-    	// Retrieve entity metamodel with proper typing
-    	var entityMetamodel = entityManager.getMetamodel().entity(entityEnum.getEntity());
-
-    	
     	// Create a typed specification
-    	var entitySpecification = new EntitySpecification<AbstractEntity>(entityMetamodel, search);
+    	var entitySpecification = new EntitySpecification<>(entityEnum.getEntity(), search);
     	
     	// Perform the query
-		var page = entityRepository.findAll(entitySpecification, pageable);
+		var page = entityRepository.findAll((Specification)entitySpecification, pageable);
 		
 		// Build the PagedModel
         PagedModel<AbstractEntityModel> pagedModel;
